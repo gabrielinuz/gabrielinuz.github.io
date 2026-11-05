@@ -132,6 +132,42 @@
         .donut-circle {
             transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        /* Adaptación para pantallas de baja altura (Celulares en modo horizontal / landscape) */
+        @media (max-height: 500px) {
+            .fixed-logo {
+                height: 28px;
+                top: 0.4rem;
+                left: 0.5rem;
+            }
+            .slide {
+                padding: 0.4rem 0.5rem 2.2rem 0.5rem;
+            }
+            .content-box {
+                padding: 0.85rem !important;
+                max-height: calc(100vh - 2.8rem) !important;
+                border-radius: 1rem;
+            }
+            h1 {
+                font-size: 1.15rem !important;
+                line-height: 1.25 !important;
+            }
+            h2 {
+                font-size: 1.1rem !important;
+                margin-bottom: 0.4rem !important;
+                padding-bottom: 0.2rem !important;
+            }
+            .nav-controls {
+                bottom: 0.3rem;
+                right: 0.5rem;
+                padding: 0.15rem 0.35rem;
+                gap: 0.4rem;
+            }
+            .nav-btn {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -154,8 +190,8 @@
     <!-- 1. PORTADA -->
     <div class="slide active" id="slide-1">
         <div class="content-box text-center shadow-2xl animate-item flex flex-col justify-center my-auto">
-            <h3 class="font-extrabold tracking-wide uppercase mb-2 md:mb-4 text-sm md:text-2xl animate-item delay-1 utn-red">Licenciatura en Tecnología Educativa</h3>
-            <h1 class="animate-item delay-2 text-2xl md:text-4xl font-semibold text-slate-800 leading-tight">
+            <h3 class="font-bold tracking-wide mb-2 md:mb-4 text-sm md:text-5xl animate-item delay-1 utn-red">Licenciatura en Tecnología Educativa</h3>
+            <h1 class="animate-item delay-2 text-2xl md:text-3xl font-semibold text-slate-800 leading-relaxed">
                 Sostenibilidad y Software Libre en el Aula: Una propuesta tecno-pedagógica para la optimización del aprendizaje y la autonomía en la Tecnicatura Superior en Análisis de Sistemas del ISFT N° 151.
             </h1>
             <div class="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4 text-center px-4 md:px-12 animate-item delay-4">
@@ -204,16 +240,16 @@
             <h2 class="text-2xl animate-item font-bold">Hoja de Ruta</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8">
                 <div class="p-4 md:p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500 animate-item delay-1">
-                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">1. Qué buscamos</h3>
-                    <p class="text-xs text-slate-700">Objetivos generales y específicos.</p>
+                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">1. Objetivos</h3>
+                    <p class="text-xs text-slate-700">Objetivos general y específicos.</p>
                 </div>
                 <div class="p-4 md:p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500 animate-item delay-2">
-                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">2. De dónde partimos</h3>
+                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">2. Marco de Referencia</h3>
                     <p class="text-xs text-slate-700">Antecedentes y Marco Teórico.</p>
                 </div>
                 <div class="p-4 md:p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500 animate-item delay-3">
-                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">3. Qué hicimos</h3>
-                    <p class="text-xs text-slate-700">Intervención (I-A) y Muestra.</p>
+                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">3. Intervención Metodológica</h3>
+                    <p class="text-xs text-slate-700">Investigación-Acción (I-A) y Muestra.</p>
                 </div>
                 <div class="p-4 md:p-5 bg-emerald-50 rounded-xl border-l-4 border-emerald-500 animate-item delay-4">
                     <h3 class="text-base md:text-lg font-bold text-emerald-900 mb-1">4. Evidencia Empírica</h3>
@@ -326,7 +362,7 @@
                 <div class="animate-item delay-1">
                     <h3 class="text-xl md:text-2xl font-bold text-emerald-600 mb-2 md:mb-4">Software Libre (Stallman)</h3>
                     <ul class="text-base md:text-xl space-y-2 md:space-y-3 text-slate-700">
-                        <li>➤ No como ahorro económico, sino como <span class="font-bold">imperativo ético</span>.</li>
+                        <li>➤ No como ahorro económico sino como <span class="font-bold">imperativo ético</span>.</li>
                         <li>➤ Transparencia vs. la "Caja Negra" privativa.</li>
                         <li>➤ Promueve la inclusión digital crítica.</li>
                     </ul>
@@ -643,7 +679,7 @@
     <!-- 13. CONCLUSIONES -->
     <div class="slide" id="slide-13">
         <div class="content-box h-full flex flex-col justify-center">
-            <h2 class="text-2xl animate-item font-bold">Conclusiones <span class="text-slate-400 text-lg md:text-2xl hidden md:inline">| Impacto Pedagógico</span></h2>
+            <h2 class="animate-item">Conclusiones <span class="text-slate-400 text-lg md:text-2xl hidden md:inline">| Impacto Pedagógico</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-4 md:mt-8 flex-1 content-center">
                 <div class="bg-emerald-50 p-4 md:p-6 rounded-xl border border-emerald-100 animate-item delay-1">
                     <div class="text-3xl md:text-4xl text-emerald-500 font-black mb-1 md:mb-2">100%</div>
@@ -688,7 +724,7 @@
                     <div class="p-2 md:p-3 bg-rose-100 text-rose-600 rounded-lg shrink-0">
                         <svg class="w-5 h-5 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </div>
-                    <p><span class="font-bold">Dimensión Afectiva:</span> Mitigación de la ansiedad en programadores noveles.</p>
+                    <p><span class="font-bold">Dimensión Afectiva:</span> Mitigación de la ansiedad en programadores principiantes.</p>
                 </div>
                 <div class="flex items-center gap-3 md:gap-4 animate-item delay-4">
                     <div class="p-2 md:p-3 bg-emerald-100 text-emerald-600 rounded-lg shrink-0">
