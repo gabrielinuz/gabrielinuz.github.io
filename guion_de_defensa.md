@@ -51,11 +51,11 @@ Y tercero, y más grave, una **brecha de equidad**: se estaba gestando una desig
 
 1. **Como Asesor:** Se realizó un acompañamiento tecno-pedagógico directo a los docentes, ayudándolos a repensar la herramienta como un factor que interviene de forma activa en la clase.
 
-2. **Como Diseñador:** Se ofició de arquitecto de la solución pedagógica, seleccionando el ecosistema de Debian y Geany con fines estrictamente de inclusión.
+2. **Como Diseñador:** Se ofició de arquitecto de la solución pedagógica, seleccionando un ecosistema de Software Libre con fines estrictamente de inclusión, cuyos detalles técnicos específicos se abordarán más adelante.
 
 3. **Como Capacitador:** El enfoque estuvo en formar a los estudiantes en el marco ético y filosófico del Software Libre.
 
-4. **Y como Coordinador:** Actuando como facilitador de la apropiación tecnológica. La meta era transformar a usuarios pasivos de licencias comerciales en estudiantes autónomos y soberanos de su entorno."
+4. **Y como Coordinador:** Actuando como facilitador de la apropiación tecnológica. La meta fue transformar a usuarios pasivos de licencias comerciales en estudiantes autónomos y soberanos de su entorno."
 
 ## Diapositiva 8: Antecedentes
 
@@ -83,10 +83,11 @@ En segundo lugar, se incorpora el **Software Austero (Lean Software)** de Mfon-A
 "Para dar respuesta a los objetivos, el trabajo de campo se llevó a cabo en el ISFT N° 151 utilizando un diseño mixto (cuali-cuantitativo).
 Se trabajó con una muestra de **20 estudiantes** de tercer año, divididos intencionalmente en dos espacios:
 
-* Un **Grupo de Intervención (10 estudiantes)**, a quienes se dotó de hardware antiguo recuperado (netbooks de 2012) corriendo el entorno sostenible.
+* Un **Grupo de Intervención (10 estudiantes)**, a quienes se dotó de hardware antiguo recuperado (netbooks del plan Conectar Igualdad del año 2012) ejecutando el nuevo entorno sostenible de Software Libre, compuesto concretamente por el sistema Debian GNU/Linux, el gestor de ventanas ultraligero ICEWM y editores ágiles como Geany y VSCodium.
 
-* Un **Grupo de Referencia (10 estudiantes)**, que continuó su dinámica tradicional con hardware moderno y un entorno privativo.
-  Y como se destaca aquí en pantalla, respondiendo a la valiosa observación del comité evaluador, el foco de la metodología consistió en **relegar las métricas técnicas informáticas al diseño previo**, para concentrar el análisis estrictamente en el impacto pedagógico en el aula: es decir, la fluidez y la equidad."
+* Un **Grupo de Referencia (10 estudiantes)**, que continuó su dinámica tradicional con hardware institucional más reciente y el entorno privativo estándar (Windows y VS Code).
+
+Y como se destaca aquí en pantalla, respondiendo a la valiosa observación del comité evaluador, el foco de la metodología consistió en **relegar las métricas técnicas informáticas al diseño previo**, para concentrar el análisis estrictamente en el impacto pedagógico en el aula: es decir, la fluidez y la equidad."
 
 ## Diapositiva 12: Metodología II | Ciclos de la Investigación-Acción
 
@@ -110,7 +111,7 @@ La intervención se estructuró en 4 fases:
 ## Diapositiva 14: Resultados I - Fluidez Didáctica
 
 **[Speech]:**
-"Los resultados de esta intervención resultaron sumamente contundentes. Se logró erradicar los tiempos muertos. Mientras que el 60% del Grupo de Referencia sufría demoras e interrupciones con sus equipos modernos, el 100% del Grupo de Intervención (utilizando hardware antiguo) reportó una continuidad total en su trabajo. Esta eliminación de la fricción cognitiva permitió que el 90% de los estudiantes del grupo intervenido pudiera iterar y experimentar mucho más con su código durante la clase."
+"Los resultados de esta intervención resultaron sumamente contundentes. Se logró erradicar los tiempos muertos. Mientras que el 60% del Grupo de Referencia sufría demoras e interrupciones con sus equipos modernos, el 100% del Grupo de Intervención (utilizando hardware antiguo) reportó una continuidad total en su trabajo. Esta eliminación de la fricción cognitiva permitió que el 90% de los estudiantes del grupo intervenido pudiera experimentar mucho más con su código durante la clase, optimizando las iteraciones de escritura de código, ejecución y corrección de errores."
 
 ## Diapositiva 15: Resultados II - Autonomía y Apropiación
 
