@@ -6,8 +6,8 @@
     <title>Defensa Tesina - Gabriel González Ferreira</title>
     <script src="vendors/tailwindcss-3.4.17.js"></script>
     <style>
+        /* [El bloque de estilos CSS se mantiene exactamente igual] */
         body {
-            /* Pila tipográfica del sistema de alta fidelidad 100% offline (sin peticiones de red) */
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
@@ -17,19 +17,18 @@
             user-select: none;
         }
         
-        /* Ajustes Responsivos del Logo Fijo */
         .fixed-logo {
             position: fixed;
             top: 1rem;
-            left: 1rem;
-            height: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2.5rem;
             z-index: 100;
         }
         @media (min-width: 768px) {
-            .fixed-logo { top: 2rem; left: 2rem; height: 60px; }
+            .fixed-logo { top: 2rem; height: 3.75rem; }
         }
 
-        /* Motor de Slides y Espaciado Responsivo */
         .slide {
             position: absolute;
             top: 0;
@@ -43,54 +42,44 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1.25rem; /* Padding reducido para móviles */
+            padding: 1.25rem;
             box-sizing: border-box;
         }
         @media (min-width: 768px) {
-            .slide { padding: 4rem; } /* Padding original para escritorio */
+            .slide { padding: 4rem; }
         }
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .slide.active { opacity: 1; visibility: visible; }
 
-        /* Animaciones en Cascada (Stagger) */
         .slide .animate-item {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .slide.active .animate-item {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .slide.active .animate-item { opacity: 1; transform: translateY(0); }
         .slide.active .delay-1 { transition-delay: 0.2s; }
         .slide.active .delay-2 { transition-delay: 0.4s; }
         .slide.active .delay-3 { transition-delay: 0.6s; }
         .slide.active .delay-4 { transition-delay: 0.8s; }
 
-        /* Componentes UI Responsivos */
         .content-box {
             width: 100%;
             max-width: 1200px;
             background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem; /* Padding reducido para móviles */
+            padding: 1.5rem;
             border-radius: 1.5rem;
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(10px);
-            max-height: 85vh; /* Altura máxima permitida */
-            overflow-y: auto; /* Permite scroll vertical interno en móviles */
+            max-height: 85vh;
+            overflow-y: auto;
         }
         @media (min-width: 768px) {
             .content-box { padding: 3rem; max-height: 90vh; }
         }
 
-        /* Estilos de Scrollbar minimalista para el content-box (útil en móviles) */
         .content-box::-webkit-scrollbar { width: 6px; }
         .content-box::-webkit-scrollbar-track { background: transparent; }
         .content-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-        /* Tipografía Responsiva */
         h1 { font-weight: 800; font-size: 1.8rem; line-height: 1.2; color: #1e293b; text-align: center;}
         @media (min-width: 768px) { h1 { font-size: 3rem; } }
         
@@ -106,92 +95,51 @@
         .nav-btn:hover { background: #B5162B; color: #ffffff; border-color: #B5162B; }
         .slide-counter { font-size: 0.9rem; color: #64748b; font-weight: 600; min-width: 45px; text-align: center;}
         
-        /* Grid Especial para población y gráficos (Responsivo) */
         .population-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-        @media (min-width: 768px) {
-            .population-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-        }
+        @media (min-width: 768px) { .population-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
         
-        /* Estilos para Barras de Gráficos Animadas */
-        .chart-bar-bg {
-            background-color: #e2e8f0;
-            border-radius: 9999px;
-            height: 1.25rem;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        .chart-bar-fill {
-            height: 100%;
-            border-radius: 9999px;
-            width: 0%;
-            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .chart-bar-bg { background-color: #e2e8f0; border-radius: 9999px; height: 1.25rem; width: 100%; overflow: hidden; position: relative; }
+        .chart-bar-fill { height: 100%; border-radius: 9999px; width: 0%; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .donut-circle { transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* Transición suave para gráficos de dona (Donut SVG) */
-        .donut-circle {
-            transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .apa-link { color: #2563eb; text-decoration: underline; text-decoration-color: #93c5fd; text-underline-offset: 4px; transition: color 0.2s; }
+        .apa-link:hover { color: #1e40af; text-decoration-color: #1e40af; }
 
-        /* Adaptación para pantallas de baja altura (Celulares en modo horizontal / landscape) */
         @media (max-height: 500px) {
-            .fixed-logo {
-                height: 28px;
-                top: 0.4rem;
-                left: 0.5rem;
-            }
-            .slide {
-                padding: 0.4rem 0.5rem 2.2rem 0.5rem;
-            }
-            .content-box {
-                padding: 0.85rem !important;
-                max-height: calc(100vh - 2.8rem) !important;
-                border-radius: 1rem;
-            }
-            h1 {
-                font-size: 1.15rem !important;
-                line-height: 1.25 !important;
-            }
-            h2 {
-                font-size: 1.1rem !important;
-                margin-bottom: 0.4rem !important;
-                padding-bottom: 0.2rem !important;
-            }
-            .nav-controls {
-                bottom: 0.3rem;
-                right: 0.5rem;
-                padding: 0.15rem 0.35rem;
-                gap: 0.4rem;
-            }
-            .nav-btn {
-                padding: 0.2rem 0.5rem;
-                font-size: 0.75rem;
-            }
+            .fixed-logo { height: 1.75rem; top: 0.4rem; }
+            .slide { padding: 0.4rem 0.5rem 2.2rem 0.5rem; }
+            .content-box { padding: 0.85rem !important; max-height: calc(100vh - 2.8rem) !important; border-radius: 1rem; }
+            h1 { font-size: 1.15rem !important; line-height: 1.25 !important; }
+            h2 { font-size: 1.1rem !important; margin-bottom: 0.4rem !important; padding-bottom: 0.2rem !important; }
+            .nav-controls { bottom: 0.3rem; right: 0.5rem; padding: 0.15rem 0.35rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.2rem 0.5rem; font-size: 0.75rem; }
         }
+
+        .ia-circle { stroke-dasharray: 600; stroke-dashoffset: 600; transition: stroke-dashoffset 1.5s ease-out; }
+        .slide.active .ia-circle { stroke-dashoffset: 0; }
     </style>
 </head>
 <body>
 
-    <!-- Logo Institucional Fijo -->
-    <img src="imagenes/logo_utn.png" alt="Logo de la Universidad Tecnológica Nacional" class="fixed-logo" onerror="handleImgError(this, 'Logo UTN', 200, 80, '#ffffff', '#B5162B')">
+    <!-- Logo Institucional -->
+    <img src="imagenes/logo_utn.png" alt="Logo UTN" class="fixed-logo" onerror="handleImgError(this, 'Logo UTN', 200, 80, '#ffffff', '#B5162B')">
 
-    <!-- Barra de Progreso y Controles -->
+    <!-- Barra de Progreso y Navegación -->
     <div id="progress" class="progress-bar" style="width: 0%;"></div>
     <div class="nav-controls shadow-lg">
-        <button class="nav-btn" onclick="prevSlide()" title="Anterior (Flecha Izquierda)">←</button>
-        <span id="counter" class="slide-counter">1 / 15</span>
-        <button class="nav-btn" onclick="nextSlide()" title="Siguiente (Flecha Derecha / Espacio)">→</button>
-        <button class="nav-btn flex items-center gap-1.5" onclick="toggleFullscreen()" title="Modo Pantalla Completa (F11)">
-            <svg id="fullscreen-icon" class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
-            <span class="text-xs hidden md:inline">Pantalla Completa</span>
+        <button class="nav-btn" onclick="prevSlide()" title="Anterior">←</button>
+        <span id="counter" class="slide-counter">1 / 17</span>
+        <button class="nav-btn" onclick="nextSlide()" title="Siguiente">→</button>
+        <button class="nav-btn flex items-center gap-1.5" onclick="toggleFullscreen()" title="Pantalla Completa">
+            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
         </button>
     </div>
 
     <!-- 1. PORTADA -->
     <div class="slide active" id="slide-1">
-        <div class="content-box text-center shadow-2xl animate-item flex flex-col justify-center my-auto">
-            <h3 class="font-bold tracking-wide mb-2 md:mb-4 text-sm md:text-5xl animate-item delay-1 utn-red">Licenciatura en Tecnología Educativa</h3>
-            <h1 class="animate-item delay-2 text-2xl md:text-3xl font-semibold text-slate-800 leading-relaxed">
+        <h3 class="font-bold tracking-wide mt-14 md:mt-18 mb-4 md:mb-8 text-2xl md:text-4xl animate-item utn-red text-center drop-shadow-sm z-10">Licenciatura en Tecnología Educativa</h3>
+        <div class="content-box text-center shadow-2xl animate-item delay-1 flex flex-col justify-center">
+            <h1 class="animate-item delay-2 text-2xl md:text-3xl font-semibold text-slate-800 leading-loose md:leading-[1.8] px-2 md:px-8">
                 Sostenibilidad y Software Libre en el Aula: Una propuesta tecno-pedagógica para la optimización del aprendizaje y la autonomía en la Tecnicatura Superior en Análisis de Sistemas del ISFT N° 151.
             </h1>
             <div class="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4 text-center px-4 md:px-12 animate-item delay-4">
@@ -214,21 +162,13 @@
         <div class="content-box h-full flex flex-col">
             <h2 class="text-2xl animate-item font-bold">Documentación Reglamentaria</h2>
             <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center justify-items-center animate-item delay-1 mt-4">
-                <!-- Carta de Aceptación -->
-                <div class="w-full h-48 md:h-80 bg-slate-100 rounded-xl flex flex-col items-center justify-between border-2 border-dashed border-slate-300 relative overflow-hidden shadow-inner group cursor-pointer transition-all hover:border-blue-400 hover:shadow-lg" onclick="openImageZoom('imagenes/carta_aceptacion.png', 'Carta de Aceptación de Dirección de Tesina', 'Carta de Aceptación')">
-                    <img src="imagenes/carta_aceptacion.png" alt="Carta Aceptación" class="object-contain w-full h-[calc(100%-2.5rem)] p-4 transition-transform duration-300 group-hover:scale-105" onerror="handleImgError(this, 'Carta de Aceptación', 400, 500)">
-                    <button class="w-full py-2 bg-slate-800 hover:bg-red-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                        Ampliar Carta de Aceptación
-                    </button>
+                <div class="w-full h-48 md:h-80 bg-slate-100 rounded-xl flex flex-col items-center justify-between border-2 border-dashed border-slate-300 relative overflow-hidden shadow-inner group cursor-pointer transition-all hover:border-blue-400 hover:shadow-lg" onclick="openImageZoom('imagenes/carta_aceptacion.png', 'Carta de Aceptación', 'Carta de Aceptación')">
+                    <img src="imagenes/carta_aceptacion.png" class="object-contain w-full h-[calc(100%-2.5rem)] p-4 transition-transform duration-300 group-hover:scale-105" onerror="handleImgError(this, 'Carta de Aceptación', 400, 500)">
+                    <button class="w-full py-2 bg-slate-800 hover:bg-red-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors"> Ampliar Carta </button>
                 </div>
-                <!-- DNI -->
-                <div class="w-full h-48 md:h-80 bg-slate-100 rounded-xl flex flex-col items-center justify-between border-2 border-dashed border-slate-300 relative overflow-hidden shadow-inner group cursor-pointer transition-all hover:border-blue-400 hover:shadow-lg" onclick="openImageZoom('imagenes/dni.png', 'Documento Nacional de Identidad (DNI)', 'Frente y Dorso DNI')">
-                    <img src="imagenes/dni.png" alt="DNI" class="object-contain w-full h-[calc(100%-2.5rem)] p-4 transition-transform duration-300 group-hover:scale-105" onerror="handleImgError(this, 'Frente y Dorso DNI', 400, 250)">
-                    <button class="w-full py-2 bg-slate-800 hover:bg-red-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                        Ampliar DNI
-                    </button>
+                <div class="w-full h-48 md:h-80 bg-slate-100 rounded-xl flex flex-col items-center justify-between border-2 border-dashed border-slate-300 relative overflow-hidden shadow-inner group cursor-pointer transition-all hover:border-blue-400 hover:shadow-lg" onclick="openImageZoom('imagenes/dni.png', 'DNI', 'DNI')">
+                    <img src="imagenes/dni.png" class="object-contain w-full h-[calc(100%-2.5rem)] p-4 transition-transform duration-300 group-hover:scale-105" onerror="handleImgError(this, 'Frente y Dorso DNI', 400, 250)">
+                    <button class="w-full py-2 bg-slate-800 hover:bg-red-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors"> Ampliar DNI </button>
                 </div>
             </div>
         </div>
@@ -237,43 +177,79 @@
     <!-- 3. MAPA TEMÁTICO -->
     <div class="slide" id="slide-3">
         <div class="content-box">
-            <h2 class="text-2xl animate-item font-bold">Hoja de Ruta</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8">
-                <div class="p-4 md:p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500 animate-item delay-1">
-                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">1. Objetivos</h3>
-                    <p class="text-xs text-slate-700">Objetivos general y específicos.</p>
+            <div class="text-center">
+                <h2 class="text-3xl animate-item font-bold">Estructura de la Presentación</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6 md:mt-12 w-full">
+                <div class="p-5 md:p-6 bg-red-50 rounded-xl border-t-8 border-red-500 animate-item delay-1 shadow-sm flex flex-col items-center text-center justify-center h-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-red-900 mb-2">1. Planteo y Roles</h3>
+                    <p class="text-base md:text-lg text-slate-700">El problema, los objetivos y la intervención del Tecnólogo Educativo.</p>
                 </div>
-                <div class="p-4 md:p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500 animate-item delay-2">
-                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">2. Marco de Referencia</h3>
-                    <p class="text-xs text-slate-700">Antecedentes y Marco Teórico.</p>
+                <div class="p-5 md:p-6 bg-blue-50 rounded-xl border-t-8 border-blue-500 animate-item delay-2 shadow-sm flex flex-col items-center text-center justify-center h-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-blue-900 mb-2">2. Marco Teórico</h3>
+                    <p class="text-base md:text-lg text-slate-700">Antecedentes, fricción cognitiva e inclusión digital.</p>
                 </div>
-                <div class="p-4 md:p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500 animate-item delay-3">
-                    <h3 class="text-base md:text-lg font-bold text-blue-900 mb-1">3. Intervención Metodológica</h3>
-                    <p class="text-xs text-slate-700">Investigación-Acción (I-A) y Muestra.</p>
+                <div class="p-5 md:p-6 bg-blue-50 rounded-xl border-t-8 border-blue-500 animate-item delay-3 shadow-sm flex flex-col items-center text-center justify-center h-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-blue-900 mb-2">3. Metodología</h3>
+                    <p class="text-base md:text-lg text-slate-700">Investigación-Acción (I-A) y acciones desarrolladas en el aula.</p>
                 </div>
-                <div class="p-4 md:p-5 bg-emerald-50 rounded-xl border-l-4 border-emerald-500 animate-item delay-4">
-                    <h3 class="text-base md:text-lg font-bold text-emerald-900 mb-1">4. Evidencia Empírica</h3>
-                    <p class="text-xs text-slate-700">Análisis y Gráficos Comparativos.</p>
+                <div class="p-5 md:p-6 bg-emerald-50 rounded-xl border-t-8 border-emerald-500 animate-item delay-4 shadow-sm flex flex-col items-center text-center justify-center h-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-emerald-900 mb-2">4. Resultados</h3>
+                    <p class="text-base md:text-lg text-slate-700">Análisis de datos, storytelling de conclusión y propuestas.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 4. OBJETIVO GENERAL -->
+    <!-- 4. EL PROBLEMA DETECTADO -->
     <div class="slide" id="slide-4">
+        <div class="content-box">
+            <div class="text-center">
+                <h2 class="text-3xl animate-item font-bold">Planteo del Problema</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-10">
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex flex-col items-center text-center hover:shadow-md transition">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-red-50 text-red-600 rounded-full flex items-center justify-center mb-4 shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-2">Fricción Didáctica</h3>
+                    <p class="text-base md:text-lg text-slate-700">Los entornos privativos pesados generan "tiempos muertos" e interrumpen el flujo de atención del estudiante.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex flex-col items-center text-center hover:shadow-md transition">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mb-4 shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-2">Obsolescencia</h3>
+                    <p class="text-base md:text-lg text-slate-700">Imposibilidad técnica de utilizar herramientas modernas en el hardware antiguo disponible en el instituto.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 flex flex-col items-center text-center hover:shadow-md transition">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4 shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-2">Brecha de Equidad</h3>
+                    <p class="text-base md:text-lg text-slate-700">Desigualdad de condiciones entre estudiantes con equipos modernos y quienes dependen de equipos institucionales limitados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. OBJETIVO GENERAL -->
+    <div class="slide" id="slide-5">
         <div class="content-box text-center py-8 md:py-16 flex flex-col justify-center h-full">
             <h2 class="text-3xl font-bold animate-item mx-auto">Objetivo General</h2>
-            <div class="text-xl md:text-3xl leading-relaxed text-slate-700 font-light mt-4 md:mt-8 animate-item delay-1 px-2 md:px-8">
-                "<span class="font-bold text-blue-600">Diseñar, implementar y evaluar</span> una propuesta tecno-pedagógica basada en entornos de <span class="keyword">Software Libre</span> para optimizar las dinámicas de enseñanza-aprendizaje, la <span class="keyword">fluidez didáctica</span> y la <span class="keyword">autonomía estudiantil</span> en la Tecnicatura Superior en Análisis de Sistemas del ISFT N° 151."
+            <div class="text-xl md:text-3xl leading-loose md:leading-[2] text-slate-700 font-light mt-4 md:mt-8 animate-item delay-1 px-2 md:px-8">
+                "<span class="font-bold text-blue-600">Diseñar, implementar y evaluar</span> una propuesta tecno-pedagógica basada en entornos de <span class="keyword">Software Libre</span> para optimizar las dinámicas de enseñanza-aprendizaje, la <span class="keyword">fluidez didáctica</span> y la <span class="keyword">autonomía estudiantil</span> en el ISFT N° 151."
             </div>
         </div>
     </div>
 
-    <!-- 5. OBJETIVOS ESPECÍFICOS -->
-    <div class="slide" id="slide-5">
+    <!-- 6. OBJETIVOS ESPECÍFICOS -->
+    <div class="slide" id="slide-6">
         <div class="content-box">
-            <h2 class="text-2xl animate-item font-bold">Objetivos Específicos</h2>
-            <div class="space-y-4 md:space-y-6 mt-4 md:mt-8">
+            <div class="text-center">
+                <h2 class="text-3xl animate-item font-bold">Objetivos Específicos</h2>
+            </div>
+            <div class="space-y-4 md:space-y-6 mt-6 md:mt-10">
                 <div class="flex items-start gap-4 animate-item delay-1">
                     <div class="bg-blue-600 text-white rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center font-bold text-lg md:text-xl shrink-0 shadow-lg">1</div>
                     <p class="text-lg md:text-2xl text-slate-700 pt-1 md:pt-2"><span class="font-bold">Diagnosticar</span> las barreras tecno-pedagógicas y la fricción técnica de los entornos privativos en el aula.</p>
@@ -290,582 +266,514 @@
         </div>
     </div>
 
-    <!-- 6. ANTECEDENTES -->
-    <div class="slide" id="slide-6">
-        <div class="content-box">
-            <h2 class="text-2xl animate-item font-bold">Antecedentes</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-4 md:mt-8">
-                <div class="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 hover:shadow-md transition">
-                    <div class="w-10 h-10 md:w-12 md:h-12 mb-3 text-blue-600 bg-blue-50 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path></svg>
+    <!-- 7. ROL DEL TECNÓLOGO EDUCATIVO -->
+    <div class="slide" id="slide-7">
+        <div class="content-box h-full flex flex-col justify-center">
+            <div class="text-center">
+                <h2 class="text-3xl animate-item font-bold">El Rol del Tecnólogo Educativo</h2>
+            </div>
+            <p class="text-center text-lg md:text-2xl text-slate-600 mb-8 md:mb-12 animate-item delay-1 font-light">
+                Integración <span class="font-bold text-slate-800">multidimensional</span> en el proyecto:
+            </p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full max-w-5xl mx-auto">
+                <div class="bg-white p-6 md:p-8 rounded-3xl border-b-4 border-blue-500 shadow-lg animate-item delay-1 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform cursor-default">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
                     </div>
-                    <h3 class="font-bold text-base md:text-lg text-slate-800">Soberanía e Inclusión</h3>
-                    <p class="text-xs md:text-sm text-slate-500 mb-2">Dolcemáscolo y Rusconi (2013)</p>
-                    <p class="text-sm md:text-base text-slate-700">Huayra GNU/Linux (Conectar Igualdad) como política de Estado y apropiación tecnológica.</p>
+                    <h3 class="font-black text-xl md:text-2xl text-slate-800 tracking-wide uppercase">Asesor</h3>
                 </div>
-                <div class="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 hover:shadow-md transition">
-                    <div class="w-10 h-10 md:w-12 md:h-12 mb-3 text-emerald-600 bg-emerald-50 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <div class="bg-white p-6 md:p-8 rounded-3xl border-b-4 border-emerald-500 shadow-lg animate-item delay-2 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform cursor-default">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
                     </div>
-                    <h3 class="font-bold text-base md:text-lg text-slate-800">Sostenibilidad del Software</h3>
-                    <p class="text-xs md:text-sm text-slate-500 mb-2">Penzenstadler et al. (2012)</p>
-                    <p class="text-sm md:text-base text-slate-700">Austeridad de recursos como respuesta directa a la obsolescencia programada en la educación.</p>
+                    <h3 class="font-black text-xl md:text-2xl text-slate-800 tracking-wide uppercase">Diseñador</h3>
                 </div>
-                <div class="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 hover:shadow-md transition">
-                    <div class="w-10 h-10 md:w-12 md:h-12 mb-3 text-indigo-600 bg-indigo-50 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                <div class="bg-white p-6 md:p-8 rounded-3xl border-b-4 border-amber-500 shadow-lg animate-item delay-3 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform cursor-default">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
                     </div>
-                    <h3 class="font-bold text-base md:text-lg text-slate-800">Equidad Digital</h3>
-                    <p class="text-xs md:text-sm text-slate-500 mb-2">Guerschberg (2024)</p>
-                    <p class="text-sm md:text-base text-slate-700">Sistemas sin restricciones de licencias para poblaciones vulnerables y autonomía.</p>
+                    <h3 class="font-black text-xl md:text-2xl text-slate-800 tracking-wide uppercase">Capacitador</h3>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-3xl border-b-4 border-rose-500 shadow-lg animate-item delay-4 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform cursor-default">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="font-black text-xl md:text-2xl text-slate-800 tracking-wide uppercase">Coordinador</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 7. MARCO TEÓRICO 1 -->
-    <div class="slide" id="slide-7">
+    <!-- 8. ANTECEDENTES -->
+    <div class="slide" id="slide-8">
         <div class="content-box">
-            <h2 class="text-2xl animate-item font-bold">Marco Teórico <span class="text-slate-400 text-lg md:text-2xl hidden md:inline">| Fricción y Carga Cognitiva</span></h2>
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Antecedentes</h2></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-10">
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 md:gap-4 mb-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 text-blue-600 bg-blue-50 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg md:text-xl text-slate-800 leading-tight">Soberanía y Apropiación</h3>
+                    </div>
+                    <p class="text-base mb-2 font-semibold"><a href="referencias/dolcemascolo_rusconi_2013.pdf" target="_blank" class="apa-link">(Dolcemáscolo & Rusconi, 2013)</a></p>
+                    <p class="text-base md:text-lg text-slate-700">Huayra GNU/Linux como política de Estado y herramienta de apropiación tecnológica.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 md:gap-4 mb-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 text-emerald-600 bg-emerald-50 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg md:text-xl text-slate-800 leading-tight">Pedagogía Abierta e Inclusiva</h3>
+                    </div>
+                    <p class="text-base mb-2 font-semibold"><a href="referencias/olivencia_martinez_2015.pdf" target="_blank" class="apa-link">(Olivencia y Martínez, 2015)</a></p>
+                    <p class="text-base md:text-lg text-slate-700">Oportunidad para transformar la práctica docente mediante recursos abiertos, colaborativos e inclusivos.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 md:gap-4 mb-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 text-indigo-600 bg-indigo-50 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg md:text-xl text-slate-800 leading-tight">Equidad Digital</h3>
+                    </div>
+                    <p class="text-base mb-2 font-semibold"><a href="referencias/guerschberg_2024.pdf" target="_blank" class="apa-link">(Guerschberg, 2024)</a></p>
+                    <p class="text-base md:text-lg text-slate-700">Sistemas sin restricciones de licencias para poblaciones vulnerables y fomento de autonomía.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. MARCO TEÓRICO 1 (LIMPIO) -->
+    <div class="slide" id="slide-9">
+        <div class="content-box">
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Marco Teórico <span class="text-slate-400 font-normal">| Fricción y Didáctica</span></h2></div>
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 mt-4 md:mt-8">
                 <div class="w-full md:w-1/2 animate-item delay-1">
                     <h3 class="text-xl md:text-2xl font-bold text-red-600 mb-2 md:mb-4">El Problema: La Fricción</h3>
-                    <ul class="text-base md:text-xl space-y-2 md:space-y-4 text-slate-700 list-disc pl-5">
-                        <li><span class="font-bold">Carga Cognitiva Irrelevante</span> (Sweller) por "pesadez" del software privativo.</li>
-                        <li>Interrupción atencional y <span class="font-bold text-red-500">tiempos muertos</span>.</li>
-                        <li>Desplaza el foco: de "aprender lógica" a "pelear con la máquina".</li>
+                    <ul class="text-base md:text-xl space-y-4 md:space-y-6 text-slate-700 list-disc pl-5">
+                        <li>
+                            <span class="font-bold">Carga Cognitiva Irrelevante</span> <a href="referencias/sweller_2011.pdf" target="_blank" class="apa-link font-semibold">(Sweller et al., 2011)</a>: La "pesadez" del software privativo satura la memoria de trabajo.
+                        </li>
+                        <li>
+                            Interrupción atencional y <span class="font-bold text-red-500">tiempos muertos</span> que desplazan el foco (de aprender lógica a pelear con la máquina).
+                        </li>
                     </ul>
                 </div>
-                <div class="w-full md:w-1/2 bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 animate-item delay-2 shadow-inner text-center">
+                <div class="w-full md:w-1/2 bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 animate-item delay-2 shadow-inner text-center flex flex-col justify-center">
                     <div class="flex justify-center items-center gap-4 md:gap-6 mb-4 text-blue-600">
                         <div class="p-2 md:p-3 bg-blue-100 rounded-full">
                             <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                         </div>
-                        <div class="p-2 md:p-3 bg-amber-100 text-amber-600 rounded-full">
-                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                        <div class="p-2 md:p-3 bg-slate-200 text-slate-700 rounded-full">
-                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        </div>
                     </div>
-                    <p class="text-base md:text-xl font-semibold text-slate-800 italic">"La ineficiencia técnica es un obstáculo pedagógico (Litwin) que genera exclusión."</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 8. MARCO TEÓRICO 2 -->
-    <div class="slide" id="slide-8">
-        <div class="content-box">
-            <h2 class="text-2xl animate-item font-bold">Marco Teórico <span class="text-slate-400 text-lg md:text-2xl hidden md:inline">| Soberanía y Software Austero</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-4 md:mt-8">
-                <div class="animate-item delay-1">
-                    <h3 class="text-xl md:text-2xl font-bold text-emerald-600 mb-2 md:mb-4">Software Libre (Stallman)</h3>
-                    <ul class="text-base md:text-xl space-y-2 md:space-y-3 text-slate-700">
-                        <li>➤ No como ahorro económico sino como <span class="font-bold">imperativo ético</span>.</li>
-                        <li>➤ Transparencia vs. la "Caja Negra" privativa.</li>
-                        <li>➤ Promueve la inclusión digital crítica.</li>
-                    </ul>
-                </div>
-                <div class="animate-item delay-2">
-                    <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-2 md:mb-4">Software Austero (Mfon-Abasi)</h3>
-                    <ul class="text-base md:text-xl space-y-2 md:space-y-3 text-slate-700">
-                        <li>➤ Reinterpretado desde la Didáctica.</li>
-                        <li>➤ Revitaliza hardware obsoleto.</li>
-                        <li>➤ Catalizador de la <span class="keyword">Fluidez Didáctica</span>.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 9. DESARROLLO, MUESTRA Y CORRECCIÓN DEL COMITÉ -->
-    <div class="slide" id="slide-9">
-        <div class="content-box h-full flex flex-col">
-            <h2 class="text-2xl animate-item font-bold">Desarrollo e Intervención <span class="text-xs md:text-sm text-slate-400 align-middle ml-2 block md:inline mt-1 md:mt-0">(Metodología I-A)</span></h2>
-            
-            <div class="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 md:px-6 md:py-3 rounded-lg mb-4 md:mb-6 animate-item delay-1 flex items-start md:items-center gap-3">
-                <svg class="w-5 h-5 md:w-6 md:h-6 text-blue-600 shrink-0 mt-1 md:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                <p class="font-medium text-xs md:text-sm">
-                    <strong>Ajuste de Enfoque (Observación del Comité):</strong> Se reinterpretaron las métricas técnicas (RAM/CPU) traduciéndolas al impacto pedagógico: <span class="font-bold">Fluidez en el aula y Equidad de Acceso</span>.
-                </p>
-            </div>
-
-            <div class="population-grid flex-1 animate-item delay-2">
-                <!-- Grupo Intervención -->
-                <div class="bg-white rounded-xl shadow border-t-4 border-emerald-500 p-4 flex flex-col min-h-[250px]">
-                    <h3 class="font-bold text-base md:text-lg text-emerald-700 mb-1 md:mb-2">Grupo Intervención (GI - n = 10)</h3>
-                    <p class="text-xs md:text-sm text-slate-600 mb-2 md:mb-4 font-semibold">Debian + ICEWM + Geany / VSCodium <br>(Netbooks antiguas Conectar Igualdad)</p>
-                    <div class="flex-1 bg-slate-100 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden">
-                        <img src="imagenes/foto_gi.png" alt="Foto GI Netbook Restaurada" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto Netbook Restaurada (GI)', 400, 200)">
-                    </div>
-                </div>
-                <!-- Grupo Referencia -->
-                <div class="bg-white rounded-xl shadow border-t-4 border-slate-400 p-4 flex flex-col min-h-[250px]">
-                    <h3 class="font-bold text-base md:text-lg text-slate-700 mb-1 md:mb-2">Grupo Referencia (GR - n = 10)</h3>
-                    <p class="text-xs md:text-sm text-slate-600 mb-2 md:mb-4 font-semibold">Windows + VS Code (Privativo)<br>(Hardware más reciente / Institucional)</p>
-                    <div class="flex-1 bg-slate-100 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden">
-                        <img src="imagenes/foto_gr.png" alt="Foto GR Aula" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto Aula Privativo (GR)', 400, 200)">
+                    <p class="text-base md:text-xl font-semibold text-slate-800 italic leading-relaxed">
+                        "[Las tecnologías] no son neutras [...] es fundamental reconocer que cuando las empleamos, ellas nos marcan límites concretos, requieren tiempos y condicionan las experiencias."
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <a href="referencias/litwin_2005.pdf" target="_blank" class="apa-link text-lg md:text-xl font-bold">(Litwin, 2005)</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 10. RESULTADOS I: FLUIDEZ DIDÁCTICA Y FRICCIÓN TÉCNICA -->
+    <!-- 10. MARCO TEÓRICO 2 -->
     <div class="slide" id="slide-10">
-        <div class="content-box h-full flex flex-col justify-between">
-            <h2 class="text-2xl font-bold animate-item mb-2">Resultados I <span class="text-slate-400 text-sm md:text-xl font-normal block md:inline">| Fluidez y Reducción de Fricción</span></h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 my-auto pt-2">
-                <!-- Gráfico 1: Velocidad y Fluidez -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 1</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Percepción de Velocidad y Fluidez</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"El entorno se siente rápido y fluido."</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 90% Positivo</span>
-                                <span class="text-slate-500">Likert 4-5</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="90%"></div>
-                            </div>
+        <div class="content-box">
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Marco Teórico <span class="text-slate-400 font-normal">| Soberanía y Software Austero</span></h2></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-4 md:mt-8">
+                <div class="animate-item delay-1 bg-white p-6 rounded-xl shadow-sm border border-emerald-100">
+                    <h3 class="text-xl md:text-2xl font-bold text-emerald-600 mb-2 md:mb-4">Software Libre</h3>
+                    <p class="text-base md:text-lg text-slate-500 mb-4"><a href="referencias/stallman_2004.pdf" target="_blank" class="apa-link font-bold">(Stallman, 2004)</a></p>
+                    <ul class="text-base md:text-xl space-y-3 text-slate-700">
+                        <li>➤ No es una decisión de costos, sino un <span class="font-bold">imperativo ético y pedagógico</span>.</li>
+                        <li>➤ Brinda transparencia vs. la "Caja Negra" de entornos privativos (VS Code).</li>
+                        <li>➤ Promueve activamente la inclusión digital crítica.</li>
+                    </ul>
+                </div>
+                <div class="animate-item delay-2 bg-white p-6 rounded-xl shadow-sm border border-blue-100">
+                    <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-2 md:mb-4">Software Austero</h3>
+                    <p class="text-base md:text-lg text-slate-500 mb-4"><a href="referencias/mfon_abasi_2014.pdf" target="_blank" class="apa-link font-bold">(Mfon-Abasi, 2014)</a></p>
+                    <ul class="text-base md:text-xl space-y-3 text-slate-700">
+                        <li>➤ Reinterpretado para la Didáctica (Entornos livianos como Geany).</li>
+                        <li>➤ Revitaliza hardware obsoleto y evita la marginación del estudiante.</li>
+                        <li>➤ Es el catalizador técnico de la <span class="keyword">Fluidez Didáctica</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 11. METODOLOGÍA (CORREGIDA) -->
+    <div class="slide" id="slide-11">
+        <div class="content-box h-full flex flex-col">
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Metodología</h2></div>
+
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <!-- Columna Izquierda: Los Grupos -->
+                <div class="flex flex-col gap-4 animate-item delay-2">
+                    <!-- Grupo Intervención -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 border-l-8 border-l-emerald-500 p-4 flex flex-col hover:shadow-md transition-shadow">
+                        <h3 class="font-bold text-lg md:text-xl text-emerald-700 mb-1">Grupo Intervención (GI - n = 10)</h3>
+                        <p class="text-base text-slate-600 mb-3 font-medium">Hardware antiguo + Entorno Sostenible.</p>
+                        <div class="h-32 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200">
+                            <img src="imagenes/foto_gi.png" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto GI: SL', 400, 150)">
                         </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-700">GR (Privativo): 70% Positivo</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-slate-500" data-width="70%"></div>
-                            </div>
+                    </div>
+                    <!-- Grupo Referencia -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 border-l-8 border-l-slate-400 p-4 flex flex-col hover:shadow-md transition-shadow">
+                        <h3 class="font-bold text-lg md:text-xl text-slate-700 mb-1">Grupo Referencia (GR - n = 10)</h3>
+                        <p class="text-base text-slate-600 mb-3 font-medium">Hardware más reciente + Entorno Privativo.</p>
+                        <div class="h-32 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200">
+                            <img src="imagenes/foto_gr.png" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto GR: Privativo', 400, 150)">
                         </div>
                     </div>
                 </div>
 
-                <!-- Gráfico 2: Tiempos de Espera Didácticos -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 2</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Sin Interrupciones por Espera</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"El tiempo de espera es corto y no interrumpe mi trabajo."</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 100% Positivo</span>
+                <!-- Columna Derecha: Gráfico SVG de Fases -->
+                <div class="animate-item delay-3 flex justify-center items-center h-full p-4">
+                    <div class="relative w-full max-w-sm aspect-square">
+                        <!-- SVG Base -->
+                        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                    <polygon points="0 0, 6 3, 0 6" fill="#94a3b8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Círculo animado de fondo -->
+                            <circle cx="100" cy="100" r="70" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="10 5" class="animate-[spin_20s_linear_infinite]" />
+                            
+                            <!-- Líneas de conexión (Ciclo) -->
+                            <path class="ia-circle" d="M 100 30 A 70 70 0 0 1 170 100" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <path class="ia-circle" d="M 170 100 A 70 70 0 0 1 100 170" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <path class="ia-circle" d="M 100 170 A 70 70 0 0 1 30 100" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <path class="ia-circle" d="M 30 100 A 70 70 0 0 1 100 30" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+                            <!-- Nodos Circulares -->
+                            <circle cx="100" cy="30" r="22" fill="#ef4444" stroke="#ffffff" stroke-width="3" />
+                            <text x="100" y="35" fill="white" font-size="14" font-weight="bold" text-anchor="middle">1</text>
+                            
+                            <circle cx="170" cy="100" r="22" fill="#f59e0b" stroke="#ffffff" stroke-width="3" />
+                            <text x="170" y="105" fill="white" font-size="14" font-weight="bold" text-anchor="middle">2</text>
+                            
+                            <circle cx="100" cy="170" r="22" fill="#10b981" stroke="#ffffff" stroke-width="3" />
+                            <text x="100" y="175" fill="white" font-size="14" font-weight="bold" text-anchor="middle">3</text>
+                            
+                            <circle cx="30" cy="100" r="22" fill="#3b82f6" stroke="#ffffff" stroke-width="3" />
+                            <text x="30" y="105" fill="white" font-size="14" font-weight="bold" text-anchor="middle">4</text>
+                        </svg>
+
+                        <!-- Etiquetas de texto posicionadas de forma absoluta sobre el SVG -->
+                        <div class="absolute w-full h-full top-0 left-0 pointer-events-none">
+                            <div class="absolute top-[0%] left-1/2 -translate-x-1/2 -translate-y-full mt-2 w-max text-center">
+                                <span class="block text-sm font-bold text-red-600">Diagnóstico</span>
+                                <span class="text-xs text-slate-500">(Fricción didáctica)</span>
                             </div>
-                            <div class="chart-bar-bg">
+                            <div class="absolute top-1/2 right-[0%] translate-x-full -translate-y-1/2 ml-2 w-max text-left">
+                                <span class="block text-sm font-bold text-amber-600">Diseño Tecno</span>
+                                <span class="block text-sm font-bold text-amber-600">-Pedagógico</span>
+                                <span class="text-xs text-slate-500">(Validación Téc.)</span>
+                            </div>
+                            <div class="absolute bottom-[0%] left-1/2 -translate-x-1/2 translate-y-full mb-2 w-max text-center">
+                                <span class="block text-sm font-bold text-emerald-600">Implementación</span>
+                                <span class="text-xs text-slate-500">(SL en el aula)</span>
+                            </div>
+                            <div class="absolute top-1/2 left-[0%] -translate-x-full -translate-y-1/2 mr-2 w-max text-right">
+                                <span class="block text-sm font-bold text-blue-600">Evaluación</span>
+                                <span class="block text-xs text-slate-500">(Fluidez</span>
+                                <span class="block text-xs text-slate-500">/Autonomía)</span>
+                            </div>
+                            
+                            <!-- Centro del gráfico -->
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-24">
+                                <span class="block text-sm font-black text-slate-700">I - A en el Aula</span>
+                                <span class="text-xs text-slate-400">Ciclo Continuo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. ACCIONES LLEVADAS ADELANTE (AHORA SE VERÁ CORRECTAMENTE) -->
+    <div class="slide" id="slide-12">
+        <div class="content-box">
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Acciones Implementadas en el Aula</h2></div>
+            
+            <div class="space-y-4 md:space-y-6 mt-6 md:mt-10">
+                <div class="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex items-start gap-4 hover:border-blue-300 transition-colors">
+                    <div class="bg-blue-100 text-blue-600 rounded-full w-12 h-12 shrink-0 flex items-center justify-center font-bold text-xl">1</div>
+                    <div>
+                        <h3 class="font-bold text-lg md:text-xl text-slate-800 mb-1">Recuperación y Viabilidad (Diagnóstico)</h3>
+                        <p class="text-base md:text-lg text-slate-600">Se rescataron netbooks discontinuadas (2011/2012) validando un umbral de viabilidad técnica (RAM < 30%) para garantizar que el hardware antiguo no sea una barrera.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex items-start gap-4 hover:border-emerald-300 transition-colors">
+                    <div class="bg-emerald-100 text-emerald-600 rounded-full w-12 h-12 shrink-0 flex items-center justify-center font-bold text-xl">2</div>
+                    <div>
+                        <h3 class="font-bold text-lg md:text-xl text-slate-800 mb-1">Despliegue del Entorno (Acción)</h3>
+                        <p class="text-base md:text-lg text-slate-600">Instalación conjunta del sistema Debian GNU/Linux, ICEWM (entorno de escritorio ultraligero) y Geany (editor libre que expone el proceso de compilación).</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 flex items-start gap-4 hover:border-amber-300 transition-colors">
+                    <div class="bg-amber-100 text-amber-600 rounded-full w-12 h-12 shrink-0 flex items-center justify-center font-bold text-xl">3</div>
+                    <div>
+                        <h3 class="font-bold text-lg md:text-xl text-slate-800 mb-1">Mediación Pedagógica (Acompañamiento)</h3>
+                        <p class="text-base md:text-lg text-slate-600">Talleres presenciales y virtuales donde los estudiantes pasaron de "sufrir el cambio" a comprender y apropiarse de la filosofía del código abierto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. RESULTADOS I: FLUIDEZ -->
+    <div class="slide" id="slide-13">
+        <div class="content-box h-full flex flex-col justify-between">
+            <div class="text-center"><h2 class="text-3xl font-bold animate-item mb-2">Resultados I <span class="text-slate-400 font-normal">| Fluidez Didáctica</span></h2></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 my-auto pt-4">
+                <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex flex-col justify-between">
+                    <div class="mb-6">
+                        <h3 class="font-bold text-slate-800 text-lg md:text-xl mb-2">Eliminación de Tiempos Muertos</h3>
+                        <p class="text-base md:text-lg text-slate-500 italic">"El tiempo de espera al programar es corto y NO interrumpe mi trabajo."</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-base font-bold mb-2">
+                                <span class="text-emerald-700">Grupo Intervención (SL): 100% Afirmativo</span>
+                            </div>
+                            <div class="chart-bar-bg h-6 md:h-8">
                                 <div class="chart-bar-fill bg-emerald-500" data-width="100%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-700">GR (Privativo): 40% Positivo</span>
+                            <div class="flex justify-between text-base font-bold mb-2">
+                                <span class="text-slate-700">Grupo Referencia (Privativo): 40% Afirmativo</span>
                             </div>
-                            <div class="chart-bar-bg">
+                            <div class="chart-bar-bg h-6 md:h-8">
                                 <div class="chart-bar-fill bg-slate-500" data-width="40%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gráfico 3: Ausencia de Frustración Técnica -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 3</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Trabajo Sin Frustración Técnica</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"El entorno me permite trabajar sin frustraciones."</p>
+                <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex flex-col justify-between">
+                    <div class="mb-6">
+                        <h3 class="font-bold text-slate-800 text-lg md:text-xl mb-2">Aumento de Iteración Activa</h3>
+                        <p class="text-base md:text-lg text-slate-500 italic">"La fluidez del sistema me permite probar y experimentar más."</p>
                     </div>
-                    <div class="space-y-3">
+                    <div class="space-y-6">
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 90% Positivo</span>
+                            <div class="flex justify-between text-base font-bold mb-2">
+                                <span class="text-blue-700">Grupo Intervención (SL): 90% Afirmativo</span>
                             </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="90%"></div>
+                            <div class="chart-bar-bg h-6 md:h-8">
+                                <div class="chart-bar-fill bg-blue-500" data-width="90%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-700">GR (Privativo): 40% Positivo</span>
+                            <div class="flex justify-between text-base font-bold mb-2">
+                                <span class="text-slate-700">Grupo Referencia (Privativo): 60% Afirmativo</span>
                             </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-slate-500" data-width="40%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-slate-100 p-3 rounded-lg border-l-4 border-emerald-500 animate-item delay-4 text-xs md:text-sm text-slate-700 mt-4">
-                <strong>Análisis T.E.:</strong> La mayor brecha se observa en la <em>continuidad del flujo de trabajo</em> (Ítem 2: 100% GI vs. 40% GR), demostrando que la pesadez del entorno privativo fragmenta la atención del estudiante.
-            </div>
-        </div>
-    </div>
-
-    <!-- 11. RESULTADOS II: IMPACTO DIDÁCTICO Y AUTONOMÍA -->
-    <div class="slide" id="slide-11">
-        <div class="content-box h-full flex flex-col justify-between">
-            <h2 class="text-2xl font-bold animate-item mb-2">Resultados II <span class="text-slate-400 text-sm md:text-xl font-normal block md:inline">| Concentración, Iteración y Ayuda</span></h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 my-auto pt-2">
-                <!-- Gráfico 4: Capacidad de Concentración -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 4</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Impacto en Concentración</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"La velocidad del entorno impacta en mi concentración."</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 60% Acuerdan</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="60%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-700">GR (Privativo): 30% Acuerdan</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-slate-500" data-width="30%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gráfico 5: Experimentación e Iteración Activa -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 5</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Experimentación e Iteración</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"La fluidez me permite probar y experimentar más en clase."</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 90% Positivo</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="90%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-700">GR (Privativo): 60% Positivo</span>
-                            </div>
-                            <div class="chart-bar-bg">
+                            <div class="chart-bar-bg h-6 md:h-8">
                                 <div class="chart-bar-fill bg-slate-500" data-width="60%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Gráfico 6: Ayuda al Aprendizaje vs. Obstáculo -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 6</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Ayuda vs. Obstáculo</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"El entorno es una ayuda para mi aprendizaje, no un obstáculo."</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 100% Positivo</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="100%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-700">GR (Privativo): 50% Positivo</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-slate-500" data-width="50%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <div class="bg-slate-100 p-3 rounded-lg border-l-4 border-indigo-500 animate-item delay-4 text-xs md:text-sm text-slate-700 mt-4">
-                <strong>Análisis T.E.:</strong> La tasa de experimentación (90% GI vs. 60% GR) y la percepción del sistema como ayuda muestran que la fluidez fomenta la pérdida del miedo al error y estimula la autonomía activa.
-            </div>
-        </div>
-    </div>
-
-    <!-- 12. RESULTADOS III: APROPIACIÓN Y SOBERANÍA TECNOLÓGICA -->
-    <div class="slide" id="slide-12">
-        <div class="content-box h-full flex flex-col justify-between">
-            <h2 class="text-2xl font-bold animate-item mb-2">Resultados III <span class="text-slate-400 text-sm md:text-xl font-normal block md:inline">| Apropiación y Soberanía</span></h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 my-auto pt-2">
-                <!-- Gráfico 1: Aporte de Contenidos Nuevos -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">Ítem 7</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Aporte de Contenidos Nuevos</h3>
-                        <p class="text-xs text-slate-500 italic mb-4">"El entorno de Software Libre me permitió aprender cosas nuevas."</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-emerald-700">GI (SL Libre): 90% Positivo</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="90%"></div>
-                            </div>
-                        </div>
-                        <div class="bg-emerald-50 p-2 md:p-3 rounded-lg border border-emerald-100 text-[11px] md:text-xs text-slate-700 mt-2">
-                            <span class="font-bold text-emerald-800">Caja Transparente:</span> Comprender el sistema operativo despierta aprendizajes técnicos significativos.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gráfico 2: Donut Chart - Interés en la Filosofía -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex flex-col justify-between text-center">
-                    <div>
-                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">Dimensión Ética</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Interés en la Filosofía SL</h3>
-                        <p class="text-xs text-slate-500 italic mb-2">"¿Te interesó la filosofía?"</p>
-                    </div>
-                    <div class="relative w-28 h-28 md:w-36 md:h-36 mx-auto my-2 flex items-center justify-center">
-                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="40" stroke="#e2e8f0" stroke-width="12" fill="transparent" />
-                            <circle cx="50" cy="50" r="40" stroke="#cbd5e1" stroke-width="12" fill="transparent" stroke-dasharray="251.3" stroke-dashoffset="0" />
-                            <circle class="donut-circle" cx="50" cy="50" r="40" stroke="#10b981" stroke-width="12" fill="transparent" stroke-linecap="round" stroke-dasharray="251.3" data-total="251.3" data-offset="50.26" style="stroke-dashoffset: 251.3;" />
-                        </svg>
-                        <div class="absolute flex flex-col items-center justify-center">
-                            <span class="text-xl md:text-2xl font-black text-emerald-600">80%</span>
-                            <span class="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase">Sí</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gráfico 3: Donut Chart - Instalación en PC Propia -->
-                <div class="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm animate-item delay-3 flex flex-col justify-between text-center">
-                    <div>
-                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">Autonomía Real</span>
-                        <h3 class="font-bold text-slate-800 text-sm md:text-base mt-2 mb-1">Adopción en Hogar</h3>
-                        <p class="text-xs text-slate-500 italic mb-2">"¿Probarías instalar Linux?"</p>
-                    </div>
-                    <div class="relative w-28 h-28 md:w-36 md:h-36 mx-auto my-2 flex items-center justify-center">
-                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="40" stroke="#e2e8f0" stroke-width="12" fill="transparent" />
-                            <circle cx="50" cy="50" r="40" stroke="#cbd5e1" stroke-width="12" fill="transparent" stroke-dasharray="251.3" stroke-dashoffset="0" />
-                            <circle class="donut-circle" cx="50" cy="50" r="40" stroke="#059669" stroke-width="12" fill="transparent" stroke-linecap="round" stroke-dasharray="251.3" data-total="251.3" data-offset="25.13" style="stroke-dashoffset: 251.3;" />
-                        </svg>
-                        <div class="absolute flex flex-col items-center justify-center">
-                            <span class="text-xl md:text-2xl font-black text-emerald-700">90%</span>
-                            <span class="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase">Sí</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-slate-100 p-3 rounded-lg border-l-4 border-emerald-600 animate-item delay-4 text-xs md:text-sm text-slate-700 mt-4">
-                <strong>Dimensión Emancipadora:</strong> La disposición a migrar a Linux en sus hogares (90%) demuestra la superación definitiva de la inercia del usuario pasivo.
+            <div class="bg-slate-100 p-4 rounded-lg border-l-4 border-emerald-500 animate-item delay-3 text-base md:text-lg text-slate-700 mt-6 text-center">
+                <strong>Análisis:</strong> La reducción técnica de consumo se tradujo directamente en la erradicación de la fricción cognitiva en el aula.
             </div>
         </div>
     </div>
 
-    <!-- 13. CONCLUSIONES -->
-    <div class="slide" id="slide-13">
-        <div class="content-box h-full flex flex-col justify-center">
-            <h2 class="animate-item">Conclusiones <span class="text-slate-400 text-lg md:text-2xl hidden md:inline">| Impacto Pedagógico</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-4 md:mt-8 flex-1 content-center">
-                <div class="bg-emerald-50 p-4 md:p-6 rounded-xl border border-emerald-100 animate-item delay-1">
-                    <div class="text-3xl md:text-4xl text-emerald-500 font-black mb-1 md:mb-2">100%</div>
-                    <h3 class="font-bold text-emerald-800 text-base md:text-lg">Fluidez Absoluta (Obj. 3)</h3>
-                    <p class="text-slate-700 mt-1 md:mt-2 text-xs md:text-sm">Cero interrupciones didácticas en el Grupo de Intervención vs. alta frustración (60%) en el Privativo.</p>
+    <!-- 14. RESULTADOS II: APROPIACIÓN -->
+    <div class="slide" id="slide-14">
+        <div class="content-box h-full flex flex-col justify-between">
+            <div class="text-center"><h2 class="text-3xl font-bold animate-item mb-2">Resultados II <span class="text-slate-400 font-normal">| Autonomía y Apropiación</span></h2></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 my-auto pt-4">
+                <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-1 flex flex-col justify-between text-center">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-xl mb-2">Comprensión de la "Caja Transparente"</h3>
+                        <p class="text-base md:text-lg text-slate-500 italic mb-4">"El entorno de Software Libre me permitió aprender cosas nuevas sobre sistemas."</p>
+                    </div>
+                    <div class="relative w-40 h-40 md:w-48 md:h-48 mx-auto my-4 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" stroke="#e2e8f0" stroke-width="12" fill="transparent" />
+                            <circle cx="50" cy="50" r="40" stroke="#cbd5e1" stroke-width="12" fill="transparent" stroke-dasharray="251.3" stroke-dashoffset="0" />
+                            <circle class="donut-circle" cx="50" cy="50" r="40" stroke="#10b981" stroke-width="12" fill="transparent" stroke-linecap="round" stroke-dasharray="251.3" data-total="251.3" data-offset="25.13" style="stroke-dashoffset: 251.3;" />
+                        </svg>
+                        <div class="absolute flex flex-col items-center justify-center">
+                            <span class="text-3xl md:text-4xl font-black text-emerald-600">90%</span>
+                            <span class="text-xs md:text-sm text-slate-500 font-bold uppercase mt-1">Acuerdo</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-blue-50 p-4 md:p-6 rounded-xl border border-blue-100 animate-item delay-2">
-                    <div class="text-3xl md:text-4xl text-blue-500 font-black mb-1 md:mb-2">Viable</div>
-                    <h3 class="font-bold text-blue-800 text-base md:text-lg">Equidad Lograda (Obj. 2)</h3>
-                    <p class="text-slate-700 mt-1 md:mt-2 text-xs md:text-sm">Se validó la recuperación de netbooks discontinuadas como estrategia de inclusión real y sostenible.</p>
-                </div>
-                <div class="bg-indigo-50 p-4 md:p-6 rounded-xl border border-indigo-100 animate-item delay-3">
-                    <div class="text-3xl md:text-4xl text-indigo-500 font-black mb-1 md:mb-2">90%</div>
-                    <h3 class="font-bold text-indigo-800 text-base md:text-lg">Apropiación (Obj. 3)</h3>
-                    <p class="text-slate-700 mt-1 md:mt-2 text-xs md:text-sm">De consumidores pasivos a soberanía. Los alumnos mostraron interés en instalar SL en sus hogares.</p>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm animate-item delay-2 flex flex-col justify-between text-center">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-xl mb-2">Autonomía Real (Adopción)</h3>
+                        <p class="text-base md:text-lg text-slate-500 italic mb-4">"¿Probarías instalar Linux en tu propia computadora luego de esto?"</p>
+                    </div>
+                    <div class="relative w-40 h-40 md:w-48 md:h-48 mx-auto my-4 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" stroke="#e2e8f0" stroke-width="12" fill="transparent" />
+                            <circle cx="50" cy="50" r="40" stroke="#cbd5e1" stroke-width="12" fill="transparent" stroke-dasharray="251.3" stroke-dashoffset="0" />
+                            <circle class="donut-circle" cx="50" cy="50" r="40" stroke="#0ea5e9" stroke-width="12" fill="transparent" stroke-linecap="round" stroke-dasharray="251.3" data-total="251.3" data-offset="25.13" style="stroke-dashoffset: 251.3;" />
+                        </svg>
+                        <div class="absolute flex flex-col items-center justify-center">
+                            <span class="text-3xl md:text-4xl font-black text-sky-600">90%</span>
+                            <span class="text-xs md:text-sm text-slate-500 font-bold uppercase mt-1">Sí</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p class="mt-6 md:mt-8 text-center text-sm md:text-xl text-slate-800 font-medium italic animate-item delay-4">
-                "La mejora no está en la máquina, sino en el modelo tecno-pedagógico del Tecnólogo Educativo."
-            </p>
+            
+            <div class="bg-slate-100 p-4 rounded-lg border-l-4 border-sky-600 animate-item delay-3 text-base md:text-lg text-slate-700 mt-6 text-center">
+                <strong>Dimensión Emancipadora:</strong> Estudiantes superaron la inercia del usuario pasivo, apropiándose genuinamente de las herramientas libres.
+            </div>
+        </div>
+    </div>
+
+    <!-- 15. CONCLUSIONES (STORYTELLING VISUAL) -->
+    <div class="slide" id="slide-15">
+        <div class="content-box h-full flex flex-col justify-center">
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Conclusión <span class="text-slate-400 font-normal">| El camino de la intervención</span></h2></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
+                <!-- Paso 1: Objetivo 1 -->
+                <div class="bg-white p-6 rounded-2xl border-t-8 border-red-500 shadow-md animate-item delay-1 flex flex-col items-center text-center relative">
+                    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <h3 class="mt-6 font-black text-xl text-slate-800 mb-2">1. Diagnóstico</h3>
+                    <p class="text-base text-slate-600 font-medium">La ineficiencia del software privativo fue comprobada como una <span class="text-red-600 font-bold">barrera pedagógica</span> real que frustraba al estudiante.</p>
+                </div>
+
+                <!-- Paso 2: Objetivo 2 -->
+                <div class="bg-white p-6 rounded-2xl border-t-8 border-emerald-500 shadow-md animate-item delay-2 flex flex-col items-center text-center relative">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="mt-6 font-black text-xl text-slate-800 mb-2">2. Implementación</h3>
+                    <p class="text-base text-slate-600 font-medium">Se diseñó un ecosistema libre que <span class="text-emerald-600 font-bold">revivió hardware obsoleto</span>, garantizando equidad y sostenibilidad.</p>
+                </div>
+
+                <!-- Paso 3: Objetivo 3 -->
+                <div class="bg-white p-6 rounded-2xl border-t-8 border-blue-500 shadow-md animate-item delay-3 flex flex-col items-center text-center relative">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                    </div>
+                    <h3 class="mt-6 font-black text-xl text-slate-800 mb-2">3. Evaluación</h3>
+                    <p class="text-base text-slate-600 font-medium">Se aportó fluidez a la clase y se logró que el estudiante rompa la inercia, alcanzando la <span class="text-blue-600 font-bold">autonomía total</span>.</p>
+                </div>
+            </div>
+            
+            <div class="mt-10 md:mt-12 text-center animate-item delay-4">
+                <span class="inline-block bg-slate-800 text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full shadow-lg">
+                    Transformamos usuarios pasivos en profesionales soberanos.
+                </span>
+            </div>
         </div>
     </div>
     
-    <!-- 14. LINEAS FUTURAS -->
-    <div class="slide" id="slide-14">
+    <!-- 16. LINEAS FUTURAS Y LIMITACIONES -->
+    <div class="slide" id="slide-16">
         <div class="content-box">
-            <h2 class="text-2xl animate-item font-bold">Futuras Líneas de Investigación</h2>
-            <div class="space-y-4 md:space-y-6 mt-4 md:mt-8 text-base md:text-xl text-slate-700">
-                <div class="flex items-center gap-3 md:gap-4 animate-item delay-1">
-                    <div class="p-2 md:p-3 bg-blue-100 text-blue-600 rounded-lg shrink-0">
-                        <svg class="w-5 h-5 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Líneas Futuras de Investigación</h2></div>
+            
+            <!-- Badge de Limitaciones -->
+            <div class="mt-4 mb-6 md:mb-8 bg-amber-50 border border-amber-200 text-amber-800 p-3 md:p-4 rounded-xl flex items-center justify-center gap-3 animate-item delay-1 shadow-sm text-sm md:text-base font-medium mx-auto max-w-3xl">
+                <svg class="w-6 h-6 shrink-0 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <span><strong>Limitaciones del presente estudio:</strong> Muestra de 20 estudiantes, marco temporal de 1 cuatrimestre y dependencia de hardware donado.</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4 text-base md:text-lg text-slate-700">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4 animate-item delay-2">
+                    <div class="p-3 bg-blue-100 text-blue-600 rounded-lg shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
                     </div>
-                    <p><span class="font-bold">Escalabilidad:</span> Implementación transversal en toda la carrera.</p>
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-1">Escalabilidad Institucional</h3>
+                        <p class="text-sm md:text-base">Implementar este modelo en la totalidad de la carrera de Análisis de Sistemas.</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 md:gap-4 animate-item delay-2">
-                    <div class="p-2 md:p-3 bg-amber-100 text-amber-600 rounded-lg shrink-0">
-                        <svg class="w-5 h-5 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4 animate-item delay-3">
+                    <div class="p-3 bg-emerald-100 text-emerald-600 rounded-lg shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
-                    <p><span class="font-bold">Ciclo de Vida:</span> Medición longitudinal de la vida útil pedagógica.</p>
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-1">Formación Docente</h3>
+                        <p class="text-sm md:text-base">Capacitar docentes para que administren el ecosistema sin depender del tecnólogo.</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 md:gap-4 animate-item delay-3">
-                    <div class="p-2 md:p-3 bg-rose-100 text-rose-600 rounded-lg shrink-0">
-                        <svg class="w-5 h-5 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4 animate-item delay-4">
+                    <div class="p-3 bg-rose-100 text-rose-600 rounded-lg shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </div>
-                    <p><span class="font-bold">Dimensión Afectiva:</span> Mitigación de la ansiedad en programadores principiantes.</p>
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-1">Dimensión Afectiva</h3>
+                        <p class="text-sm md:text-base">Evaluar cómo la fluidez reduce la ansiedad académica en programadores noveles.</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 md:gap-4 animate-item delay-4">
-                    <div class="p-2 md:p-3 bg-emerald-100 text-emerald-600 rounded-lg shrink-0">
-                        <svg class="w-5 h-5 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4 animate-item delay-4">
+                    <div class="p-3 bg-indigo-100 text-indigo-600 rounded-lg shrink-0">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     </div>
-                    <p><span class="font-bold">Laboratorio Abierto:</span> Institucionalización como práctica comunitaria.</p>
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-1">Comunidad de Práctica</h3>
+                        <p class="text-sm md:text-base">Creación de un "Club de Software Libre" como práctica de extensión comunitaria.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 15. GRACIAS -->
-    <div class="slide" id="slide-15">
-        <div class="content-box text-center py-12 md:py-20 flex flex-col justify-center h-full">
-            <h1 class="text-3xl md:text-5xl utn-red mb-4 md:mb-6 animate-item">¡Muchas Gracias!</h1>
-            <p class="text-lg md:text-2xl text-slate-600 animate-item delay-1">Por su atención y acompañamiento.</p>
+    <!-- 17. GRACIAS -->
+    <div class="slide" id="slide-17">
+        <div class="content-box text-center py-8 md:py-16 flex flex-col justify-center h-full">
+            <h1 class="text-4xl md:text-7xl utn-red mb-4 animate-item font-black tracking-tight drop-shadow-sm">¡Muchas Gracias!</h1>
             
-            <div class="mt-8 md:mt-16 p-4 md:p-6 bg-slate-50 border border-slate-200 rounded-xl inline-block max-w-2xl mx-auto animate-item delay-2">
-                <p class="text-base md:text-lg text-slate-700 italic">
-                    "Un especial agradecimiento al Comité Evaluador.<br>Sus oportunas observaciones fueron clave para dar el salto cualitativo hacia la madurez tecno-pedagógica de este trabajo."
+            <div class="flex justify-center gap-6 md:gap-12 mt-6 md:mt-10 animate-item delay-1">
+                <div class="flex flex-col items-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                    </div>
+                    <span class="text-sm md:text-base font-bold text-slate-600">Mentoría</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
+                    </div>
+                    <span class="text-sm md:text-base font-bold text-slate-600">Formación</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L12 8.343l3.172-3.171a4 4 0 115.656 5.656L12 21.414l-8.828-8.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <span class="text-sm md:text-base font-bold text-slate-600">Familia</span>
+                </div>
+            </div>
+            
+            <div class="mt-10 md:mt-16 p-4 md:p-6 bg-slate-50 border border-slate-200 rounded-xl inline-block max-w-2xl mx-auto animate-item delay-2">
+                <p class="text-base md:text-lg text-slate-700 font-medium">
+                    Un especial agradecimiento al Comité Evaluador.<br>
+                    <span class="italic text-slate-500 text-sm md:text-base">Sus oportunas observaciones fueron clave para dar el salto cualitativo hacia la madurez tecno-pedagógica de esta defensa.</span>
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- SLIDES DE RESPALDO (BACKUPS PARA PREGUNTAS) -->
-    <!-- ========================================== -->
-
-    <!-- 16. BACKUP 1: ¿Por qué Geany? -->
-    <div class="slide" id="slide-16">
-        <div class="content-box bg-slate-900 text-white border border-slate-700 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-            <h2 class="text-lg md:text-xl text-yellow-400 border-yellow-400 border-b-2 inline-block font-bold">Anexo: ¿Por qué Geany y no VS Code?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-4 md:mt-8">
-                <div>
-                    <h3 class="text-lg md:text-xl font-bold text-blue-300 mb-2">Visual Studio Code (Privativo)</h3>
-                    <ul class="list-disc pl-5 space-y-1 md:space-y-2 text-sm md:text-base text-slate-300">
-                        <li>IDE Pesado basado en Electron.</li>
-                        <li>Oculta el proceso (Caja Negra).</li>
-                        <li>Incluye telemetría corporativa.</li>
-                        <li>Inviable en equipos ≤ 4 GB de RAM.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg md:text-xl font-bold text-emerald-400 mb-2">Geany (Software Libre)</h3>
-                    <ul class="list-disc pl-5 space-y-1 md:space-y-2 text-sm md:text-base text-slate-300">
-                        <li>Consumo en reposo: &lt; 30% RAM.</li>
-                        <li>Transparencia cognitiva: El alumno ve cómo se compila (scripts).</li>
-                        <li>Fomenta la soberanía y la apropiación.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 17. BACKUP 2: Medición Técnica (El Umbral) -->
-    <div class="slide" id="slide-17">
-        <div class="content-box border border-slate-300 shadow-xl h-full flex flex-col justify-center">
-            <h2 class="text-lg md:text-xl text-slate-600 border-slate-400 border-b-2 mb-2 md:mb-3 font-bold">Anexo: Validación Técnica</h2>
-            <p class="mb-2 md:mb-4 text-xs md:text-sm text-slate-600">Umbral de viabilidad (Modelo GREENSOFT): Comparativa de hardware restaurado vs. estándar.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-2 md:mt-4">
-                <!-- Tarjeta GI -->
-                <div class="bg-emerald-50 border border-emerald-200 p-4 md:p-5 rounded-xl">
-                    <div class="flex justify-between items-center mb-2 md:mb-3">
-                        <h3 class="font-bold text-sm md:text-base text-emerald-800">Grupo Intervención</h3>
-                        <span class="bg-emerald-200 text-emerald-800 text-[10px] md:text-xs px-2 py-1 rounded-full font-bold">Debian+ICEWM</span>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-[10px] md:text-xs font-semibold text-slate-700 mb-1">
-                                <span>RAM Reposo (Netbook 2011)</span>
-                                <span class="font-bold text-emerald-700">&lt; 30%</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="28%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] md:text-xs font-semibold text-slate-700 mb-1">
-                                <span>Tiempo de Respuesta</span>
-                                <span class="font-bold text-emerald-700">Inmediato (&lt; 1s)</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-emerald-500" data-width="15%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta GR -->
-                <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl">
-                    <div class="flex justify-between items-center mb-2 md:mb-3">
-                        <h3 class="font-bold text-sm md:text-base text-slate-800">Grupo Referencia</h3>
-                        <span class="bg-slate-200 text-slate-700 text-[10px] md:text-xs px-2 py-1 rounded-full font-bold">Win+VSCode</span>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-[10px] md:text-xs font-semibold text-slate-700 mb-1">
-                                <span>RAM Reposo (Netbook 2023)</span>
-                                <span class="font-bold text-red-600">&gt; 78%</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-red-500" data-width="78%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] md:text-xs font-semibold text-slate-700 mb-1">
-                                <span>Tiempo / Latencia</span>
-                                <span class="font-bold text-amber-600">Elevado (&gt; 60s)</span>
-                            </div>
-                            <div class="chart-bar-bg">
-                                <div class="chart-bar-fill bg-amber-500" data-width="85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-3 md:mt-4 text-center">
-                <span class="text-[9px] md:text-[11px] text-slate-400">Datos validados mediante HTOP y PowerShell Measure-Command.</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 18. BACKUP 3: Rol del Tecnólogo -->
-    <div class="slide" id="slide-18">
-        <div class="content-box bg-blue-900 text-white">
-            <h2 class="text-lg md:text-xl text-white border-blue-400 border-b-2 font-bold">Anexo: Dimensión del Rol (T.E.)</h2>
-            <p class="text-lg md:text-2xl font-light italic mt-4 md:mt-6 border-l-4 border-yellow-400 pl-4 md:pl-6">
-                "La labor profesional se define como una integración multidimensional..."
-            </p>
-            <ul class="mt-6 md:mt-8 space-y-3 md:space-y-4 text-base md:text-xl font-medium text-blue-100">
-                <li class="flex items-center gap-2 md:gap-3"><span class="bg-yellow-400 text-blue-900 px-2 md:px-3 py-1 rounded font-bold text-xs md:text-sm">1</span> ASESOR tecno-pedagógico.</li>
-                <li class="flex items-center gap-2 md:gap-3"><span class="bg-yellow-400 text-blue-900 px-2 md:px-3 py-1 rounded font-bold text-xs md:text-sm">2</span> DISEÑADOR de la solución.</li>
-                <li class="flex items-center gap-2 md:gap-3"><span class="bg-yellow-400 text-blue-900 px-2 md:px-3 py-1 rounded font-bold text-xs md:text-sm">3</span> CAPACITADOR ético-filosófico.</li>
-                <li class="flex items-center gap-2 md:gap-3"><span class="bg-yellow-400 text-blue-900 px-2 md:px-3 py-1 rounded font-bold text-xs md:text-sm">4</span> MEDIADOR de apropiación.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Modal para Zoom de Imagen (Lightbox) -->
+    <!-- Modal para Zoom de Imagen (Se mantiene igual) -->
     <div id="image-modal" class="fixed inset-0 z-[200] bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center p-4 md:p-8" onclick="closeImageZoom()">
         <div class="relative w-full max-w-5xl h-full max-h-[90vh] flex flex-col items-center justify-center scale-95 transition-transform duration-300" id="modal-container" onclick="event.stopPropagation()">
             <button onclick="closeImageZoom()" class="absolute top-4 right-4 md:-top-12 md:right-0 bg-slate-800 md:bg-white/20 hover:bg-red-600 text-white p-2 rounded-full backdrop-blur-sm transition-all focus:outline-none flex items-center justify-center shadow-lg z-[210]" title="Cerrar (Esc)">
@@ -877,7 +785,7 @@
     </div>
 
     <script>
-        let currentSlide = 0;
+        let currentSlide = 0; // Inicio en la 11 para pruebas (índice 10)
         const slides = document.querySelectorAll('.slide');
         const progressBar = document.getElementById('progress');
         const counter = document.getElementById('counter');
@@ -942,7 +850,6 @@
             slides.forEach((slide, index) => {
                 if (index === currentSlide) {
                     slide.classList.add('active');
-                    // Asegurar scroll al inicio si la slide era larga
                     const contentBox = slide.querySelector('.content-box');
                     if(contentBox) contentBox.scrollTop = 0;
 
@@ -971,7 +878,7 @@
                 }
             });
             
-            const mainSlidesCount = 15;
+            const mainSlidesCount = 17;
             let progress = 0;
             if (currentSlide < mainSlidesCount) {
                 progress = (currentSlide / (mainSlidesCount - 1)) * 100;
@@ -1009,12 +916,10 @@
             }
         });
         
-        // Touch swipe variables para móvil
         let touchstartX = 0;
         let touchendX = 0;
         
         function checkDirection() {
-            // Solo si el deslizamiento es suficientemente largo (evitar clicks accidentales)
             if (touchendX < touchstartX - 50) nextSlide();
             if (touchendX > touchstartX + 50) prevSlide();
         }
@@ -1024,7 +929,6 @@
         });
 
         document.addEventListener('touchend', e => {
-            // Evitar que el swipe funcione si estoy haciendo scroll vertical o usando el lightbox
             const modal = document.getElementById('image-modal');
             if(modal.classList.contains('opacity-100')) return;
             
@@ -1032,7 +936,7 @@
             checkDirection();
         });
 
-        // Inicialización
+        // Fuerzo actualización inicial
         updateSlide();
     </script>
 </body>

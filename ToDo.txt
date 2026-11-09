@@ -1,0 +1,8 @@
+* Imprimir en pdf en cada diapositiva como backup de entrega y unirlos con pdftk
+
+* Revisar el guion_de_tesina.md
+
+* Crear una Diapositiva más de Diseño Metológico (es la de Desarrllo e Intervención.) Además de esa colocar otra con capturas al repositorio (actualizar titulo de tesina en README.md y embellecerlo con emojis y gráficos) y el proceso de instalación en netbooks.
+
+* Verificar cuidadosamente si se responden los objetivos en las conclusiones.
+
