@@ -6,7 +6,6 @@
     <title>Defensa Tesina - Gabriel González Ferreira</title>
     <script src="vendors/tailwindcss-3.4.17.js"></script>
     <style>
-        /* [El bloque de estilos CSS se mantiene exactamente igual] */
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
@@ -95,15 +94,18 @@
         .nav-btn:hover { background: #B5162B; color: #ffffff; border-color: #B5162B; }
         .slide-counter { font-size: 0.9rem; color: #64748b; font-weight: 600; min-width: 45px; text-align: center;}
         
-        .population-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-        @media (min-width: 768px) { .population-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-        
         .chart-bar-bg { background-color: #e2e8f0; border-radius: 9999px; height: 1.25rem; width: 100%; overflow: hidden; position: relative; }
         .chart-bar-fill { height: 100%; border-radius: 9999px; width: 0%; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
         .donut-circle { transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        .apa-link { color: #2563eb; text-decoration: underline; text-decoration-color: #93c5fd; text-underline-offset: 4px; transition: color 0.2s; }
-        .apa-link:hover { color: #1e40af; text-decoration-color: #1e40af; }
+        /* Animaciones para la Diapositiva 18 */
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float-1 { animation: float-gentle 3.5s ease-in-out infinite; }
+        .animate-float-2 { animation: float-gentle 3s ease-in-out infinite 0.5s; }
+        .animate-float-3 { animation: float-gentle 3.2s ease-in-out infinite 1s; }
 
         @media (max-height: 500px) {
             .fixed-logo { height: 1.75rem; top: 0.4rem; }
@@ -128,7 +130,7 @@
     <div id="progress" class="progress-bar" style="width: 0%;"></div>
     <div class="nav-controls shadow-lg">
         <button class="nav-btn" onclick="prevSlide()" title="Anterior">←</button>
-        <span id="counter" class="slide-counter">1 / 17</span>
+        <span id="counter" class="slide-counter">1 / 18</span>
         <button class="nav-btn" onclick="nextSlide()" title="Siguiente">→</button>
         <button class="nav-btn flex items-center gap-1.5" onclick="toggleFullscreen()" title="Pantalla Completa">
             <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
@@ -402,54 +404,73 @@
             </div>
         </div>
     </div>
-    
-    <!-- 11. METODOLOGÍA (CORREGIDA) -->
-    <div class="slide" id="slide-11">
-        <div class="content-box h-full flex flex-col">
-            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Metodología</h2></div>
 
-            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <!-- Columna Izquierda: Los Grupos -->
-                <div class="flex flex-col gap-4 animate-item delay-2">
-                    <!-- Grupo Intervención -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 border-l-8 border-l-emerald-500 p-4 flex flex-col hover:shadow-md transition-shadow">
-                        <h3 class="font-bold text-lg md:text-xl text-emerald-700 mb-1">Grupo Intervención (GI - n = 10)</h3>
-                        <p class="text-base text-slate-600 mb-3 font-medium">Hardware antiguo + Entorno Sostenible.</p>
-                        <div class="h-32 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200">
-                            <img src="imagenes/foto_gi.png" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto GI: SL', 400, 150)">
-                        </div>
-                    </div>
-                    <!-- Grupo Referencia -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 border-l-8 border-l-slate-400 p-4 flex flex-col hover:shadow-md transition-shadow">
-                        <h3 class="font-bold text-lg md:text-xl text-slate-700 mb-1">Grupo Referencia (GR - n = 10)</h3>
-                        <p class="text-base text-slate-600 mb-3 font-medium">Hardware más reciente + Entorno Privativo.</p>
-                        <div class="h-32 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200">
-                            <img src="imagenes/foto_gr.png" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto GR: Privativo', 400, 150)">
-                        </div>
+    <!-- 11. METODOLOGÍA I -->
+    <div class="slide" id="slide-11">
+        <div class="content-box h-full flex flex-col justify-between">
+            <div class="text-center">
+                <h2 class="text-3xl animate-item font-bold">Metodología I <span class="text-slate-400 font-normal">| Unidad de Análisis y Muestra</span></h2>
+            </div>
+
+            <!-- Ajuste Comité (Banner) -->
+            <div class="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 md:px-6 md:py-4 rounded-xl mt-2 animate-item delay-1 flex items-start md:items-center gap-3 w-full max-w-5xl mx-auto shadow-sm">
+                <svg class="w-6 h-6 md:w-8 md:h-8 text-blue-600 shrink-0 mt-1 md:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                <p class="font-medium text-sm md:text-base">
+                    <strong>Ajuste de Enfoque (Observación del Comité):</strong> Se reinterpretaron las métricas técnicas (RAM/CPU) traduciéndolas estrictamente al impacto pedagógico: <span class="font-bold text-blue-900">Fluidez en el aula y Equidad de Acceso</span>.
+                </p>
+            </div>
+
+            <!-- Grupos -->
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-6 w-full max-w-5xl mx-auto animate-item delay-2">
+                <!-- Grupo Intervención -->
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 border-l-8 border-l-emerald-500 p-5 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="font-bold text-xl md:text-2xl text-emerald-700 mb-2">Grupo Intervención (GI - n=10)</h3>
+                    <p class="text-base md:text-lg text-slate-600 mb-4 font-medium flex-1">Hardware antiguo (Plan Conectar Igualdad 2012) + Entorno de Aprendizaje Sostenible (SL).</p>
+                    <div class="h-40 md:h-48 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200">
+                        <img src="imagenes/foto_gi.png" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto GI: SL', 500, 250)">
                     </div>
                 </div>
+                <!-- Grupo Referencia -->
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 border-l-8 border-l-slate-400 p-5 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="font-bold text-xl md:text-2xl text-slate-700 mb-2">Grupo Referencia (GR - n=10)</h3>
+                    <p class="text-base md:text-lg text-slate-600 mb-4 font-medium flex-1">Hardware institucional reciente + Entorno Privativo estándar (Windows + VS Code).</p>
+                    <div class="h-40 md:h-48 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200">
+                        <img src="imagenes/foto_gr.png" class="object-cover w-full h-full" onerror="handleImgError(this, 'Foto GR: Privativo', 500, 250)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Columna Derecha: Gráfico SVG de Fases -->
-                <div class="animate-item delay-3 flex justify-center items-center h-full p-4">
-                    <div class="relative w-full max-w-sm aspect-square">
-                        <!-- SVG Base -->
+    <!-- 12. METODOLOGÍA II -->
+    <div class="slide" id="slide-12">
+        <div class="content-box h-full flex flex-col justify-between">
+            <div class="text-center">
+                <h2 class="text-3xl animate-item font-bold">Metodología II <span class="text-slate-400 font-normal">| Ciclos de la Investigación-Acción</span></h2>
+            </div>
+            
+            <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 px-6 py-3 rounded-full mt-4 animate-item delay-1 inline-flex items-center gap-2 mx-auto shadow-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span class="text-sm md:text-base"><strong class="font-black">Diseño I-A:</strong> Permite diagnosticar, intervenir proactivamente en el aula y reflexionar sobre su impacto.</span>
+            </div>
+
+            <div class="flex-1 flex flex-col md:flex-row gap-8 lg:gap-12 items-center justify-center w-full max-w-5xl mx-auto mt-6">
+                <!-- Gráfico SVG -->
+                <div class="w-full md:w-1/2 flex justify-center items-center h-full animate-item delay-2">
+                    <div class="relative w-full max-w-xs md:max-w-sm aspect-square">
                         <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
                             <defs>
-                                <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                <marker id="arrowhead2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                                     <polygon points="0 0, 6 3, 0 6" fill="#94a3b8" />
                                 </marker>
                             </defs>
-                            
-                            <!-- Círculo animado de fondo -->
                             <circle cx="100" cy="100" r="70" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="10 5" class="animate-[spin_20s_linear_infinite]" />
                             
-                            <!-- Líneas de conexión (Ciclo) -->
-                            <path class="ia-circle" d="M 100 30 A 70 70 0 0 1 170 100" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
-                            <path class="ia-circle" d="M 170 100 A 70 70 0 0 1 100 170" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
-                            <path class="ia-circle" d="M 100 170 A 70 70 0 0 1 30 100" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
-                            <path class="ia-circle" d="M 30 100 A 70 70 0 0 1 100 30" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <path class="ia-circle" d="M 100 30 A 70 70 0 0 1 170 100" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                            <path class="ia-circle" d="M 170 100 A 70 70 0 0 1 100 170" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                            <path class="ia-circle" d="M 100 170 A 70 70 0 0 1 30 100" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                            <path class="ia-circle" d="M 30 100 A 70 70 0 0 1 100 30" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrowhead2)"/>
 
-                            <!-- Nodos Circulares -->
                             <circle cx="100" cy="30" r="22" fill="#ef4444" stroke="#ffffff" stroke-width="3" />
                             <text x="100" y="35" fill="white" font-size="14" font-weight="bold" text-anchor="middle">1</text>
                             
@@ -462,42 +483,40 @@
                             <circle cx="30" cy="100" r="22" fill="#3b82f6" stroke="#ffffff" stroke-width="3" />
                             <text x="30" y="105" fill="white" font-size="14" font-weight="bold" text-anchor="middle">4</text>
                         </svg>
-
-                        <!-- Etiquetas de texto posicionadas de forma absoluta sobre el SVG -->
+                        
                         <div class="absolute w-full h-full top-0 left-0 pointer-events-none">
-                            <div class="absolute top-[0%] left-1/2 -translate-x-1/2 -translate-y-full mt-2 w-max text-center">
-                                <span class="block text-sm font-bold text-red-600">Diagnóstico</span>
-                                <span class="text-xs text-slate-500">(Fricción didáctica)</span>
-                            </div>
-                            <div class="absolute top-1/2 right-[0%] translate-x-full -translate-y-1/2 ml-2 w-max text-left">
-                                <span class="block text-sm font-bold text-amber-600">Diseño Tecno</span>
-                                <span class="block text-sm font-bold text-amber-600">-Pedagógico</span>
-                                <span class="text-xs text-slate-500">(Validación Téc.)</span>
-                            </div>
-                            <div class="absolute bottom-[0%] left-1/2 -translate-x-1/2 translate-y-full mb-2 w-max text-center">
-                                <span class="block text-sm font-bold text-emerald-600">Implementación</span>
-                                <span class="text-xs text-slate-500">(SL en el aula)</span>
-                            </div>
-                            <div class="absolute top-1/2 left-[0%] -translate-x-full -translate-y-1/2 mr-2 w-max text-right">
-                                <span class="block text-sm font-bold text-blue-600">Evaluación</span>
-                                <span class="block text-xs text-slate-500">(Fluidez</span>
-                                <span class="block text-xs text-slate-500">/Autonomía)</span>
-                            </div>
-                            
-                            <!-- Centro del gráfico -->
                             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-24">
-                                <span class="block text-sm font-black text-slate-700">I - A en el Aula</span>
-                                <span class="text-xs text-slate-400">Ciclo Continuo</span>
+                                <span class="block text-sm font-black text-slate-700">Enfoque<br>Mixto</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Fases -->
+                <div class="w-full md:w-1/2 flex flex-col gap-5 animate-item delay-3">
+                    <div class="border-l-4 border-red-500 pl-4 bg-white/50 rounded-r-lg p-2 hover:bg-white transition-colors">
+                        <h4 class="font-bold text-red-600 text-lg">1. Diagnóstico (Pre-Acción)</h4>
+                        <p class="text-sm md:text-base text-slate-700">Identificación de obstáculos (fricción didáctica) mediante análisis documental y observación.</p>
+                    </div>
+                    <div class="border-l-4 border-amber-500 pl-4 bg-white/50 rounded-r-lg p-2 hover:bg-white transition-colors">
+                        <h4 class="font-bold text-amber-600 text-lg">2. Planificación y Diseño</h4>
+                        <p class="text-sm md:text-base text-slate-700">Diseño tecno-pedagógico y validación técnica previa (RAM &lt; 30%) para asegurar la fluidez.</p>
+                    </div>
+                    <div class="border-l-4 border-emerald-500 pl-4 bg-white/50 rounded-r-lg p-2 hover:bg-white transition-colors">
+                        <h4 class="font-bold text-emerald-600 text-lg">3. Implementación (Acción)</h4>
+                        <p class="text-sm md:text-base text-slate-700">Inserción del entorno SL en el aula. El Tecnólogo Educativo facilita y media la apropiación.</p>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4 bg-white/50 rounded-r-lg p-2 hover:bg-white transition-colors">
+                        <h4 class="font-bold text-blue-600 text-lg">4. Reflexión y Evaluación</h4>
+                        <p class="text-sm md:text-base text-slate-700">Medición de autonomía y clima con <strong>Encuestas Mixtas</strong> y <strong>Guías de Observación (Cuali)</strong>.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 12. ACCIONES LLEVADAS ADELANTE (AHORA SE VERÁ CORRECTAMENTE) -->
-    <div class="slide" id="slide-12">
+    <!-- 13. ACCIONES LLEVADAS ADELANTE -->
+    <div class="slide" id="slide-13">
         <div class="content-box">
             <div class="text-center"><h2 class="text-3xl animate-item font-bold">Acciones Implementadas en el Aula</h2></div>
             
@@ -529,8 +548,8 @@
         </div>
     </div>
 
-    <!-- 13. RESULTADOS I: FLUIDEZ -->
-    <div class="slide" id="slide-13">
+    <!-- 14. RESULTADOS I: FLUIDEZ -->
+    <div class="slide" id="slide-14">
         <div class="content-box h-full flex flex-col justify-between">
             <div class="text-center"><h2 class="text-3xl font-bold animate-item mb-2">Resultados I <span class="text-slate-400 font-normal">| Fluidez Didáctica</span></h2></div>
             
@@ -592,8 +611,8 @@
         </div>
     </div>
 
-    <!-- 14. RESULTADOS II: APROPIACIÓN -->
-    <div class="slide" id="slide-14">
+    <!-- 15. RESULTADOS II: APROPIACIÓN -->
+    <div class="slide" id="slide-15">
         <div class="content-box h-full flex flex-col justify-between">
             <div class="text-center"><h2 class="text-3xl font-bold animate-item mb-2">Resultados II <span class="text-slate-400 font-normal">| Autonomía y Apropiación</span></h2></div>
             
@@ -641,54 +660,50 @@
         </div>
     </div>
 
-    <!-- 15. CONCLUSIONES (STORYTELLING VISUAL) -->
-    <div class="slide" id="slide-15">
+    <!-- 16. CONCLUSIONES (CORREGIDA TÍTULO Y TONO IMPERSONAL) -->
+    <div class="slide" id="slide-16">
         <div class="content-box h-full flex flex-col justify-center">
-            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Conclusión <span class="text-slate-400 font-normal">| El camino de la intervención</span></h2></div>
+            <div class="text-center"><h2 class="text-3xl animate-item font-bold">Conclusiones <span class="text-slate-400 font-normal">| El camino de la intervención</span></h2></div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
-                <!-- Paso 1: Objetivo 1 -->
-                <div class="bg-white p-6 rounded-2xl border-t-8 border-red-500 shadow-md animate-item delay-1 flex flex-col items-center text-center relative">
-                    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white">
+                <div class="bg-white p-6 rounded-2xl border-t-8 border-red-500 shadow-md animate-item delay-1 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white shadow-sm">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                     <h3 class="mt-6 font-black text-xl text-slate-800 mb-2">1. Diagnóstico</h3>
                     <p class="text-base text-slate-600 font-medium">La ineficiencia del software privativo fue comprobada como una <span class="text-red-600 font-bold">barrera pedagógica</span> real que frustraba al estudiante.</p>
                 </div>
 
-                <!-- Paso 2: Objetivo 2 -->
-                <div class="bg-white p-6 rounded-2xl border-t-8 border-emerald-500 shadow-md animate-item delay-2 flex flex-col items-center text-center relative">
-                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white">
+                <div class="bg-white p-6 rounded-2xl border-t-8 border-emerald-500 shadow-md animate-item delay-2 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white shadow-sm">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
                     <h3 class="mt-6 font-black text-xl text-slate-800 mb-2">2. Implementación</h3>
                     <p class="text-base text-slate-600 font-medium">Se diseñó un ecosistema libre que <span class="text-emerald-600 font-bold">revivió hardware obsoleto</span>, garantizando equidad y sostenibilidad.</p>
                 </div>
 
-                <!-- Paso 3: Objetivo 3 -->
-                <div class="bg-white p-6 rounded-2xl border-t-8 border-blue-500 shadow-md animate-item delay-3 flex flex-col items-center text-center relative">
-                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white">
+                <div class="bg-white p-6 rounded-2xl border-t-8 border-blue-500 shadow-md animate-item delay-3 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 absolute -top-8 border-4 border-white shadow-sm">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
                     </div>
                     <h3 class="mt-6 font-black text-xl text-slate-800 mb-2">3. Evaluación</h3>
-                    <p class="text-base text-slate-600 font-medium">Se aportó fluidez a la clase y se logró que el estudiante rompa la inercia, alcanzando la <span class="text-blue-600 font-bold">autonomía total</span>.</p>
+                    <p class="text-base text-slate-600 font-medium">Se recuperó la fluidez del tiempo didáctico y se redujo la frustración, propiciando la <span class="text-blue-600 font-bold">apropiación autónoma</span> del entorno.</p>
                 </div>
             </div>
             
             <div class="mt-10 md:mt-12 text-center animate-item delay-4">
-                <span class="inline-block bg-slate-800 text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full shadow-lg">
-                    Transformamos usuarios pasivos en profesionales soberanos.
+                <span class="inline-block bg-slate-800 text-white font-bold text-base md:text-lg px-6 md:px-8 py-3 rounded-full shadow-lg max-w-4xl">
+                    Se gestaron las condiciones de posibilidad para transitar de una posición pasiva hacia una auténtica soberanía profesional, tecno-pedagógica y sostenible.
                 </span>
             </div>
         </div>
     </div>
     
-    <!-- 16. LINEAS FUTURAS Y LIMITACIONES -->
-    <div class="slide" id="slide-16">
+    <!-- 17. LINEAS FUTURAS -->
+    <div class="slide" id="slide-17">
         <div class="content-box">
             <div class="text-center"><h2 class="text-3xl animate-item font-bold">Líneas Futuras de Investigación</h2></div>
             
-            <!-- Badge de Limitaciones -->
             <div class="mt-4 mb-6 md:mb-8 bg-amber-50 border border-amber-200 text-amber-800 p-3 md:p-4 rounded-xl flex items-center justify-center gap-3 animate-item delay-1 shadow-sm text-sm md:text-base font-medium mx-auto max-w-3xl">
                 <svg class="w-6 h-6 shrink-0 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 <span><strong>Limitaciones del presente estudio:</strong> Muestra de 20 estudiantes, marco temporal de 1 cuatrimestre y dependencia de hardware donado.</span>
@@ -738,42 +753,56 @@
         </div>
     </div>
 
-    <!-- 17. GRACIAS -->
-    <div class="slide" id="slide-17">
-        <div class="content-box text-center py-8 md:py-16 flex flex-col justify-center h-full">
+    <!-- 18. GRACIAS (CON ANIMACIONES Y SVG PULIDOS) -->
+    <div class="slide" id="slide-18">
+        <div class="content-box text-center py-8 md:py-16 flex flex-col justify-center h-full relative overflow-hidden">
+            
             <h1 class="text-4xl md:text-7xl utn-red mb-4 animate-item font-black tracking-tight drop-shadow-sm">¡Muchas Gracias!</h1>
             
-            <div class="flex justify-center gap-6 md:gap-12 mt-6 md:mt-10 animate-item delay-1">
-                <div class="flex flex-col items-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+            <!-- Iconos de Agradecimiento con animaciones flotantes -->
+            <div class="flex justify-center gap-8 md:gap-16 mt-8 md:mt-12 animate-item delay-1">
+                
+                <!-- Mentoría -->
+                <div class="flex flex-col items-center group animate-float-1">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+                        <svg class="w-8 h-8 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
                     </div>
-                    <span class="text-sm md:text-base font-bold text-slate-600">Mentoría</span>
+                    <span class="text-base md:text-lg font-bold text-slate-600 group-hover:text-amber-600 transition-colors">Mentoría</span>
                 </div>
-                <div class="flex flex-col items-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
+                
+                <!-- Formación -->
+                <div class="flex flex-col items-center group animate-float-2">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                        <svg class="w-8 h-8 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                        </svg>
                     </div>
-                    <span class="text-sm md:text-base font-bold text-slate-600">Formación</span>
+                    <span class="text-base md:text-lg font-bold text-slate-600 group-hover:text-blue-600 transition-colors">Formación</span>
                 </div>
-                <div class="flex flex-col items-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L12 8.343l3.172-3.171a4 4 0 115.656 5.656L12 21.414l-8.828-8.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                
+                <!-- Familia -->
+                <div class="flex flex-col items-center group animate-float-3">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                        <svg class="w-8 h-8 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
                     </div>
-                    <span class="text-sm md:text-base font-bold text-slate-600">Familia</span>
+                    <span class="text-base md:text-lg font-bold text-slate-600 group-hover:text-rose-500 transition-colors">Familia</span>
                 </div>
             </div>
             
-            <div class="mt-10 md:mt-16 p-4 md:p-6 bg-slate-50 border border-slate-200 rounded-xl inline-block max-w-2xl mx-auto animate-item delay-2">
-                <p class="text-base md:text-lg text-slate-700 font-medium">
+            <div class="mt-12 md:mt-20 p-5 md:p-6 bg-slate-50 border border-slate-200 rounded-2xl inline-block max-w-2xl mx-auto animate-item delay-2 shadow-inner">
+                <p class="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
                     Un especial agradecimiento al Comité Evaluador.<br>
-                    <span class="italic text-slate-500 text-sm md:text-base">Sus oportunas observaciones fueron clave para dar el salto cualitativo hacia la madurez tecno-pedagógica de esta defensa.</span>
+                    <span class="italic text-slate-500 text-sm md:text-base mt-2 block">Sus oportunas observaciones fueron clave para dar el salto cualitativo hacia la madurez tecno-pedagógica de esta defensa.</span>
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Zoom de Imagen (Se mantiene igual) -->
+    <!-- Modal para Zoom de Imagen -->
     <div id="image-modal" class="fixed inset-0 z-[200] bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center p-4 md:p-8" onclick="closeImageZoom()">
         <div class="relative w-full max-w-5xl h-full max-h-[90vh] flex flex-col items-center justify-center scale-95 transition-transform duration-300" id="modal-container" onclick="event.stopPropagation()">
             <button onclick="closeImageZoom()" class="absolute top-4 right-4 md:-top-12 md:right-0 bg-slate-800 md:bg-white/20 hover:bg-red-600 text-white p-2 rounded-full backdrop-blur-sm transition-all focus:outline-none flex items-center justify-center shadow-lg z-[210]" title="Cerrar (Esc)">
@@ -785,7 +814,8 @@
     </div>
 
     <script>
-        let currentSlide = 0; // Inicio en la 11 para pruebas (índice 10)
+        let currentSlide = 0; 
+        
         const slides = document.querySelectorAll('.slide');
         const progressBar = document.getElementById('progress');
         const counter = document.getElementById('counter');
@@ -878,7 +908,7 @@
                 }
             });
             
-            const mainSlidesCount = 17;
+            const mainSlidesCount = 18;
             let progress = 0;
             if (currentSlide < mainSlidesCount) {
                 progress = (currentSlide / (mainSlidesCount - 1)) * 100;
