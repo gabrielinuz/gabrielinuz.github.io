@@ -47,18 +47,13 @@ El presente trabajo aborda la problemática de la **fricción didáctica** en la
 
 ```text
 .
-├── presentacion_defensa.html   # Aplicación Web SPA con la presentación interactiva (18 filminas + 5 anexos)
-├── guion_defensa.md            # Guion oral detallado por diapositiva (20 minutos de defensa)
-├── ExportarAGoogleSlides.gs    # Script de automatización para Google Presentations (Google Apps Script)
-├── informe_director_tesina.md  # Informe formal del Director de Tesina (Dr. Gustavo E. Carr)
-├── carta_aceptacion_defensa.txt# Carta de aceptación de fecha y hora emitida por la Coordinación
-├── imagenes/
-│   ├── logo_utn.png            # Isologotipo institucional de la UTN
-│   ├── carta_aceptacion.png    # Escaneo formal de aceptación
-│   ├── dni.png                 # Documentación de identidad del tesista
-│   ├── foto_gi.png             # Registro fotográfico Grupo Intervención
-│   └── foto_gr.png             # Registro fotográfico Grupo Referencia
-└── README.md                   # Documentación principal del repositorio
+├── index.html                          # Aplicación Web SPA con la presentación interactiva (18 filminas + 5 anexos)
+├── doc/
+│   ├── GUION_DE_DEFENSA_LTE.pdf        # Guion oral detallado por diapositiva (Formato PDF)
+│   └── GUION_DE_DEFENSA_LTE.pptx       # Guion oral detallado por diapositiva (Formato PPTX)
+├── imagenes/                           # Imágenes que se usan en la defensa.
+├── referencias/                        # Referencias que se citan en la defensa.
+└── README.md                           # Documentación principal del repositorio
 ```
 
 ---
