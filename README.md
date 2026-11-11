@@ -53,6 +53,7 @@ El presente trabajo aborda la problemática de la **fricción didáctica** en la
 │   └── GUION_DE_DEFENSA_LTE.pptx       # Guion oral detallado por diapositiva (Formato PPTX)
 ├── imagenes/                           # Imágenes que se usan en la defensa.
 ├── referencias/                        # Referencias que se citan en la defensa.
+├── vendors/                            # Dependencia de biblioteca de componentes CSS Tailwind.
 └── README.md                           # Documentación principal del repositorio
 ```
 
